@@ -17,6 +17,8 @@ import android.util.Patterns;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     EditText txt_FirstName;
@@ -95,7 +97,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 ");");
                         sytdatabase.execSQL("INSERT INTO USERS VALUES('" + txt_FirstName.getText() + "','" + txt_LastName.getText() + "','" + txt_Email.getText() + "','" + txt_Username.getText() + "','" + txt_Password.getText() + "','0')");
                          */
-                        SYTDatabaseHandler dbHander = SYTDatabaseHandler.getInstance(getApplicationContext());
+                        String test = getApplicationContext().getDatabasePath("shareyourtripdb").toString();
+                        SYTDatabaseHandler dbHander = new SYTDatabaseHandler(getApplicationContext(),"shareyourtripdb",null,1);
                         dbHander.insertUser(newUser);
                         alertDisplay(RegistrationActivity.this,"Congratulations! You are officially a ShareYourTrip user!",true);
                     }
