@@ -76,10 +76,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 if(!txt_Password.getText().toString().equals(txt_ConfirmPassword.getText().toString())){
                     alertDisplay(RegistrationActivity.this,"Entered password and confrim password do not match!",false);
                 }
-                if(txt_Email.getText().toString().equals("") || txt_Username.getText().toString().equals("") || txt_Password.getText().toString().equals("") || txt_FirstName.getText().toString().equals("")|| txt_LastName.getText().toString().equals("")){
+                else if(txt_Email.getText().toString().equals("") || txt_Username.getText().toString().equals("") || txt_Password.getText().toString().equals("") || txt_FirstName.getText().toString().equals("")|| txt_LastName.getText().toString().equals("")){
                     alertDisplay(RegistrationActivity.this,"Some information is missing!",false);
                 }
-                if(!isValidEmail(txt_Email.getText())){
+                else if(!isValidEmail(txt_Email.getText())){
                     alertDisplay(RegistrationActivity.this,"Invalid Email address!",false);
                 }
                 else{
