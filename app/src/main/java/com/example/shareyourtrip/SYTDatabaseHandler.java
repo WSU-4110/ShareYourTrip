@@ -26,7 +26,7 @@ public class SYTDatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        if(this.context.getDatabasePath(DATABASE_NAME).toString().equals(db.toString().substring(16))) return;
+        if(this.context.getDatabasePath(DATABASE_NAME) != null && this.context.getDatabasePath(DATABASE_NAME).toString().equals(db.toString().substring(16))) return;
         try {
             String create_table = "CREATE TABLE IF NOT EXISTS USERS(\n" +
                     "firstname VARCHAR (50) NOT NULL,\n" +
