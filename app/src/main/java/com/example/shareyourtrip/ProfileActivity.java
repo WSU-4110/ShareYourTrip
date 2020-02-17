@@ -6,19 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomePageActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
+
+    // Variables
+    Button m_settingsbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_profile);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
-        bottomNavigationView.setSelectedItemId(R.id.home_nav);
+        bottomNavigationView.setSelectedItemId(R.id.profile_nav);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -26,23 +31,23 @@ public class HomePageActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
 
                     case R.id.search_nav:
-                        Intent search_Intent = new Intent(HomePageActivity.this, SearchActivity.class);
+                        Intent search_Intent = new Intent(ProfileActivity.this, SearchActivity.class);
                         startActivity(search_Intent);
                         break;
 
                     case R.id.post_nav:
-                        Intent post_Intent = new Intent(HomePageActivity.this, PostActivity.class);
+                        Intent post_Intent = new Intent(ProfileActivity.this, PostActivity.class);
                         startActivity(post_Intent);
                         break;
 
                     case R.id.favorite_nav:
-                        Intent favorite_Intent = new Intent(HomePageActivity.this, FavoriteActivity.class);
+                        Intent favorite_Intent = new Intent(ProfileActivity.this, FavoriteActivity.class);
                         startActivity(favorite_Intent);
                         break;
 
-                    case R.id.profile_nav:
-                        Intent profile_Intent = new Intent(HomePageActivity.this, ProfileActivity.class);
-                        startActivity(profile_Intent);
+                    case R.id.home_nav:
+                        Intent home_Intent = new Intent(ProfileActivity.this, HomePageActivity.class);
+                        startActivity(home_Intent);
                         break;
                 }
 

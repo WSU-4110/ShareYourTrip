@@ -28,6 +28,16 @@ public class LoginActivity extends AppCompatActivity {
         m_loginbutton = (Button)findViewById(R.id.Login_Button);
         m_registerbutton = (Button)findViewById(R.id.Register_Button);
 
+        // Login button
+        m_loginbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homepage_Intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                startActivity(homepage_Intent);
+                user_username.getText().clear();
+                user_password.getText().clear();
+            }
+        });
 
 
         // Register account
