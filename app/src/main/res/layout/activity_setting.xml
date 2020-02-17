@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity"
+    tools:context=".SettingsActivity"
     android:background="@drawable/login_background">
 
     <androidx.constraintlayout.widget.Guideline
@@ -24,12 +24,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile Page"
+        android:text="Settings Page"
         android:textColor="@color/White"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="260dp"
         android:textAlignment="center"
         />
+
+    <Button
+        android:id="@+id/Logout_Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="@color/ButtonColor"
+        android:text="Click to Logout"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -40,16 +51,6 @@
         app:itemIconTint="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <Button
-        android:id="@+id/Settings_Button"
-        android:layout_width="38dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_settings_white"
-        android:background="@color/settingsColor"
-        app:layout_constraintEnd_toStartOf="@id/right_guideline"
-        app:layout_constraintTop_toTopOf="parent"
         />
 
 
