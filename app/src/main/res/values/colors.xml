@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryDark">#DB03FF</color>
+    <color name="colorAccent">#D87D1B</color>
+
+    <color name="LightBlue">#00D7F3</color>
+    <color name="Pink">#FF0099</color>
+    <color name="White">#ffffff</color>
+    <color name="Black">#000000</color>
+    <color name="Grey">#C3323232</color>
+
+
+
+    <color name="ButtonColor">#9E00D7F3</color>
+
+    <color name="login_info">#8CFFFFFF</color>
+    <color name="settingsColor">#00000000</color>
+
 </resources>
