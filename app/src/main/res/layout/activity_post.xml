@@ -35,13 +35,15 @@
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_menu_add"
         tools:layout_editor_absoluteX="340dp"
-        tools:layout_editor_absoluteY="600dp" />
+        tools:layout_editor_absoluteY="600dp"
+        tools:ignore="MissingConstraints" />
 
     <ScrollView
         android:layout_width="408dp"
         android:layout_height="614dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="62dp">
+        tools:layout_editor_absoluteY="62dp"
+        tools:ignore="MissingConstraints" >
 
         <LinearLayout
             android:layout_width="match_parent"
