@@ -73,4 +73,13 @@
             android:hint="Enter Category" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/btn_dialog"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="600dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
