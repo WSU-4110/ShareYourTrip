@@ -29,7 +29,7 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/button_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -44,13 +44,14 @@
         tools:layout_editor_absoluteY="150dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Title" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/description"
         android:layout_width="380dp"
         android:layout_height="155dp"
         android:ems="10"
@@ -74,7 +75,7 @@
             android:src="@drawable/android" />
 
         <Button
-            android:id="@+id/btnChangeImage"
+            android:id="@+id/image"
             android:layout_width="380dp"
             android:layout_height="50dp"
             android:text="Add Image"
@@ -84,7 +85,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
