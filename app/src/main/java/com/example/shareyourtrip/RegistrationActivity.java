@@ -2,6 +2,7 @@ package com.example.shareyourtrip;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
@@ -101,6 +102,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         SYTDatabaseHandler dbHander = new SYTDatabaseHandler(getApplicationContext(),"shareyourtripdb",null,1);
                         dbHander.insertUser(newUser);
                         alertDisplay(RegistrationActivity.this,"Congratulations! You are officially a ShareYourTrip user!",true);
+                        Intent login_intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(login_intent);
                     }
                     catch (SQLiteCantOpenDatabaseException ex){
                         alertDisplay(RegistrationActivity.this,"Cannot open database!",false);

@@ -53,6 +53,7 @@ public class SYTDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void insertUser(User user){
+        onCreate(this.getWritableDatabase());
         try {
             String insert_user="INSERT INTO USERS VALUES('" + user.getFirstName() + "','" +
                 user.getLastName() + "','" +
