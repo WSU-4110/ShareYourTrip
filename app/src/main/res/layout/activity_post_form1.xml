@@ -34,14 +34,16 @@
         android:clickable="true"
         app:srcCompat="@android:drawable/checkbox_on_background"
         tools:layout_editor_absoluteX="340dp"
-        tools:layout_editor_absoluteY="600dp" />
+        tools:layout_editor_absoluteY="600dp"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/city"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="150dp">
+        tools:layout_editor_absoluteY="150dp"
+        tools:ignore="MissingConstraints" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -55,7 +57,8 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="250dp">
+        tools:layout_editor_absoluteY="250dp"
+        tools:ignore="MissingConstraints" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -68,7 +71,8 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="350dp">
+        tools:layout_editor_absoluteY="350dp"
+        tools:ignore="MissingConstraints" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -83,6 +87,7 @@
         android:clickable="true"
         app:srcCompat="@android:drawable/btn_dialog"
         tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="600dp" />
+        tools:layout_editor_absoluteY="600dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
