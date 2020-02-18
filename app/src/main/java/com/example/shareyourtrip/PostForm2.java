@@ -30,26 +30,26 @@ public class PostForm2 extends AppCompatActivity {
         button_cancel = (Button)findViewById(R.id.button_cancel);
         button_check = (Button)findViewById(R.id.button_check);
 
-        // Login button
-        m_loginbutton.setOnClickListener(new View.OnClickListener() {
+        // check button
+        button_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent homepage_Intent = new Intent(PostForm2.this, HomePageActivity.class);
                 startActivity(homepage_Intent);
-                user_username.getText().clear();
-                user_password.getText().clear();
+                title.getText().clear();
+                description.getText().clear();
             }
         });
 
 
-        // Register account
-        m_registerbutton.setOnClickListener(new View.OnClickListener() {
+        // cancel button
+        button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent register_Intent = new Intent(PostForm2.this, RegistrationActivity.class);
                 startActivity(register_Intent);
-                user_username.getText().clear();
-                user_password.getText().clear();
+                title.getText().clear();
+                description.getText().clear();
             }
         });
 
