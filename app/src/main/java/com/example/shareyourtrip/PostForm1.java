@@ -1,15 +1,15 @@
 package com.example.shareyourtrip;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class PostActivity extends AppCompatActivity {
+public class PostForm1 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +26,22 @@ public class PostActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
 
                     case R.id.search_nav:
-                        Intent search_Intent = new Intent(PostActivity.this, SearchActivity.class);
+                        Intent search_Intent = new Intent(PostForm1.this, SearchActivity.class);
                         startActivity(search_Intent);
                         break;
 
                     case R.id.home_nav:
-                        Intent home_Intent = new Intent(PostActivity.this, HomePageActivity.class);
+                        Intent home_Intent = new Intent(PostForm1.this, HomePageActivity.class);
                         startActivity(home_Intent);
                         break;
 
                     case R.id.favorite_nav:
-                        Intent favorite_Intent = new Intent(PostActivity.this, FavoriteActivity.class);
+                        Intent favorite_Intent = new Intent(PostForm1.this, FavoriteActivity.class);
                         startActivity(favorite_Intent);
                         break;
 
                     case R.id.profile_nav:
-                        Intent profile_Intent = new Intent(PostActivity.this, ProfileActivity.class);
+                        Intent profile_Intent = new Intent(PostForm1.this, ProfileActivity.class);
                         startActivity(profile_Intent);
                         break;
                 }
