@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="db8bd7fd-0cc6-4870-8a80-664db7f5606e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form1.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,12 +42,12 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_form2.xml">
               <provider editor-type-id="android-designer2" />
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="200">
-                  <caret line="31" selection-start-line="31" selection-end-line="31" selection-end-column="38" />
+                <state relative-caret-position="245">
+                  <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
                 </state>
               </provider>
             </entry>
@@ -93,11 +92,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm1.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="27" column="63" lean-forward="true" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
+                <state relative-caret-position="165">
+                  <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
                 </state>
               </provider>
             </entry>
@@ -205,8 +204,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/UserPost.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form2.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm2.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm1.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form1.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm1.java" />
       </list>
     </option>
   </component>
@@ -371,7 +370,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.50063694" side_tool="true" weight="0.2230523" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49936306" visible="true" weight="0.16862327" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49936306" visible="true" weight="0.16862327" />
       <window_info id="Structure" order="2" sideWeight="0.50063694" side_tool="true" weight="0.2230523" />
       <window_info id="Build Variants" order="3" sideWeight="0.50063694" side_tool="true" weight="0.2230523" />
       <window_info id="Image Layers" order="4" />
@@ -397,7 +396,7 @@
       <window_info anchor="right" id="Flutter Outline" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Flutter Performance" order="7" />
-      <window_info active="true" anchor="right" id="Preview" order="8" sideWeight="0.49871466" visible="true" weight="0.18569905" />
+      <window_info anchor="right" id="Preview" order="8" sideWeight="0.49871466" weight="0.18569905" />
     </layout>
     <layout-to-restore>
       <window_info id="Captures" order="0" sideWeight="0.50063694" side_tool="true" weight="0.2230523" />
@@ -584,14 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="40" lean-forward="true" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -678,28 +669,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm1.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_form1.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="27" column="63" lean-forward="true" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
+        <state relative-caret-position="302">
+          <caret line="70" column="46" lean-forward="true" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_form2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="31" selection-start-line="31" selection-end-line="31" selection-end-column="38" />
+        <state relative-caret-position="245">
+          <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_form1.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="36" column="48" lean-forward="true" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
+        <state relative-caret-position="75">
+          <caret line="5" column="40" lean-forward="true" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/shareyourtrip/PostForm1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

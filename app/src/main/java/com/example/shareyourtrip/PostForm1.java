@@ -15,8 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class PostForm1 extends AppCompatActivity {
 
     // Variables
-    EditText title;
-    EditText description;
+    EditText city;
+    EditText state;
+    EditText category;
     Button button_check;
     Button button_cancel;
 
@@ -24,19 +25,21 @@ public class PostForm1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        title = (EditText)findViewById(R.id.title);
-        description = (EditText)findViewById(R.id.description);
+        city = (EditText)findViewById(R.id.city);
+        state = (EditText)findViewById(R.id.state);
+        category = (EditText)findViewById(R.id.category);
         button_cancel = (Button)findViewById(R.id.button_cancel);
         button_check = (Button)findViewById(R.id.button_check);
 
-        // check button
+        // check button //must update
         button_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent homepage_Intent = new Intent(PostForm1.this, HomePageActivity.class);
                 startActivity(homepage_Intent);
-                title.getText().clear();
-                description.getText().clear();
+                city.getText().clear();
+                state.getText().clear();
+                category.getText().clear();
             }
         });
 
@@ -47,8 +50,9 @@ public class PostForm1 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent register_Intent = new Intent(PostForm1.this, RegistrationActivity.class);
                 startActivity(register_Intent);
-                title.getText().clear();
-                description.getText().clear();
+                city.getText().clear();
+                state.getText().clear();
+                category.getText().clear();
             }
         });
 
