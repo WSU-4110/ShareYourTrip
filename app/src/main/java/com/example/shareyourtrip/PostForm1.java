@@ -3,6 +3,9 @@ package com.example.shareyourtrip;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +14,43 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PostForm1 extends AppCompatActivity {
 
+    // Variables
+    EditText title;
+    EditText description;
+    Button button_check;
+    Button button_cancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+        title = (EditText)findViewById(R.id.title);
+        description = (EditText)findViewById(R.id.description);
+        button_cancel = (Button)findViewById(R.id.button_cancel);
+        button_check = (Button)findViewById(R.id.button_check);
+
+        // check button
+        button_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homepage_Intent = new Intent(PostForm1.this, HomePageActivity.class);
+                startActivity(homepage_Intent);
+                title.getText().clear();
+                description.getText().clear();
+            }
+        });
+
+
+        // cancel button
+        button_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent register_Intent = new Intent(PostForm1.this, RegistrationActivity.class);
+                startActivity(register_Intent);
+                title.getText().clear();
+                description.getText().clear();
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
