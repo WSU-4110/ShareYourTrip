@@ -16,20 +16,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class PostForm2 extends AppCompatActivity {
 
     // Variables
-    EditText user_username;
-    EditText user_password;
-    Button m_loginbutton;
-    Button m_registerbutton;
-    TextView m_forgotpassword;
+    EditText title;
+    EditText description;
+    Button button_check;
+    Button button_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        user_username = (EditText)findViewById(R.id.username);
-        user_password = (EditText)findViewById(R.id.password);
-        m_loginbutton = (Button)findViewById(R.id.Login_Button);
-        m_registerbutton = (Button)findViewById(R.id.Register_Button);
+        title = (EditText)findViewById(R.id.title);
+        description = (EditText)findViewById(R.id.description);
+        button_cancel = (Button)findViewById(R.id.button_cancel);
+        button_check = (Button)findViewById(R.id.button_check);
 
         // Login button
         m_loginbutton.setOnClickListener(new View.OnClickListener() {
