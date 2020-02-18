@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
-    tools:context=".PostActivity">
+    tools:context=".PostActivity"
+    android:background="@drawable/login_background">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,17 +15,18 @@
         android:textAlignment="center"
         android:textColor="@color/White"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:menu="@menu/bottom_navigation"
         android:background="@color/White"
         app:itemIconTint="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation" />
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
@@ -37,40 +38,49 @@
         tools:layout_editor_absoluteY="600dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteX="15dp"
         tools:layout_editor_absoluteY="150dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter City" />
+            android:hint="Enter Title" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="380dp"
+        android:layout_height="155dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:hint="Enter Description"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="280dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="250dp">
+    <LinearLayout
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="457dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter State" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:src="@drawable/android" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="350dp">
+        <Button
+            android:id="@+id/btnChangeImage"
+            android:layout_width="380dp"
+            android:layout_height="50dp"
+            android:text="Add Image"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="280dp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Category" />
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
