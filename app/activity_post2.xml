@@ -42,18 +42,35 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="75dp" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:layout_editor_absoluteX="340dp"
+        tools:layout_editor_absoluteY="600dp" />
+
     <ScrollView
         android:layout_width="408dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-        app:layout_constraintLeft_toStartOf="parent"
-        app:layout_constraintRight_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="614dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="62dp"
+        tools:ignore="MissingConstraints" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
@@ -63,30 +80,33 @@
                 android:textAlignment="center"
                 android:textColor="@color/White"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toStartOf="@+id/left_guideline"
-                app:layout_constraintRight_toStartOf="@+id/right_guideline"
                 tools:layout_editor_absoluteX="0dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/user_post"
                 android:layout_width="match_parent"
                 android:layout_height="552dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"/>
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        tools:layout_editor_absoluteX="330dp"
-        tools:layout_editor_absoluteY="600dp"
-        android:layout_marginBottom="25dp"
-        app:layout_constraintLeft_toEndOf="@+id/right_guideline"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
