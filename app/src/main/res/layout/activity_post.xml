@@ -7,6 +7,20 @@
     tools:context=".PostActivity"
     android:background="@drawable/login_background">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="25dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="25dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,22 +42,11 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        tools:layout_editor_absoluteX="340dp"
-        tools:layout_editor_absoluteY="600dp"
-        tools:ignore="MissingConstraints" />
-
     <ScrollView
         android:layout_width="408dp"
         android:layout_height="614dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="62dp"
-        tools:ignore="MissingConstraints" >
+        tools:layout_editor_absoluteY="62dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,5 +71,17 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:layout_editor_absoluteX="340dp"
+        tools:layout_editor_absoluteY="600dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintRight_toLeftOf="@+id/right_guideline"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
