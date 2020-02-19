@@ -81,7 +81,7 @@
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_post"
+        android:id="@+id/button_create_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

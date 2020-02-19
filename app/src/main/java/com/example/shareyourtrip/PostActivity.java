@@ -21,7 +21,7 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        create_post = (Button)findViewById(R.id.create_post);
+        create_post = (Button)findViewById(R.id.button_create_post);
 
         create_post.setOnClickListener(new View.OnClickListener() {
 
