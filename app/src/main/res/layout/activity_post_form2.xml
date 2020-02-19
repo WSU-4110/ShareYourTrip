@@ -50,7 +50,10 @@
         android:clickable="true"
         app:srcCompat="@android:drawable/checkbox_on_background"
         tools:layout_editor_absoluteX="340dp"
-        tools:layout_editor_absoluteY="600dp" />
+        tools:layout_editor_absoluteY="600dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintRight_toLeftOf="@+id/right_guideline"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="380dp"
@@ -106,6 +109,9 @@
         android:clickable="true"
         app:srcCompat="@android:drawable/btn_dialog"
         tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="600dp" />
+        tools:layout_editor_absoluteY="600dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintLeft_toLeftOf="@+id/left_guideline"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
