@@ -24,7 +24,7 @@ public class PostForm2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_post_form2);
         title = (EditText)findViewById(R.id.title);
         description = (EditText)findViewById(R.id.description);
         button_cancel = (Button)findViewById(R.id.button_cancel);

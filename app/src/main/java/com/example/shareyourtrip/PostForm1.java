@@ -24,7 +24,7 @@ public class PostForm1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_post_form1);
         city = (EditText)findViewById(R.id.city);
         state = (EditText)findViewById(R.id.state);
         category = (EditText)findViewById(R.id.category);
