@@ -15,15 +15,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PostActivity extends AppCompatActivity {
 
+    //
     // Variables for post page
-    FloatingActionButton create_post;
+//    FloatingActionButton create_post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        create_post = findViewById(R.id.button_create_post);
+        FloatingActionButton create_post = findViewById(R.id.button_create_post);
 
         create_post.setOnClickListener(new View.OnClickListener() {
 

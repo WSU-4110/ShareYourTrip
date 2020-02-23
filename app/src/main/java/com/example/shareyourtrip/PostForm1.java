@@ -10,6 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PostForm1 extends AppCompatActivity {
@@ -18,8 +19,8 @@ public class PostForm1 extends AppCompatActivity {
     EditText city;
     EditText state;
     EditText category;
-    Button button_check;
-    Button button_cancel;
+    FloatingActionButton button_check;
+    FloatingActionButton button_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +29,15 @@ public class PostForm1 extends AppCompatActivity {
         city = (EditText)findViewById(R.id.city);
         state = (EditText)findViewById(R.id.state);
         category = (EditText)findViewById(R.id.category);
-        button_cancel = (Button)findViewById(R.id.button_cancel);
-        button_check = (Button)findViewById(R.id.button_check);
+        button_cancel = findViewById(R.id.button_cancel);
+        button_check = findViewById(R.id.button_check);
 
         // check button //must update
         button_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homepage_Intent = new Intent(PostForm1.this, HomePageActivity.class);
+                Intent homepage_Intent = new Intent(PostForm1.this, PostForm2.class);
                 startActivity(homepage_Intent);
-                city.getText().clear();
-                state.getText().clear();
-                category.getText().clear();
             }
         });
 
@@ -48,7 +46,7 @@ public class PostForm1 extends AppCompatActivity {
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent register_Intent = new Intent(PostForm1.this, RegistrationActivity.class);
+                Intent register_Intent = new Intent(PostForm1.this, HomePageActivity.class);
                 startActivity(register_Intent);
                 city.getText().clear();
                 state.getText().clear();
