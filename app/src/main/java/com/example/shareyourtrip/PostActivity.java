@@ -31,7 +31,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
-                Intent post_page_intent = new Intent(PostActivity.this, PostForm1.class);
+                Intent post_page_intent = new Intent(PostActivity.this, PostForm1Activity.class);
                 startActivity(post_page_intent);
             }
 
