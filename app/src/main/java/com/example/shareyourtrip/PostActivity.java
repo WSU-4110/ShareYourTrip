@@ -24,18 +24,29 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        FloatingActionButton create_post = findViewById(R.id.button_create_post);
+        FloatingActionButton create_post = (FloatingActionButton)findViewById(R.id.button_create_post);
 
         create_post.setOnClickListener(new View.OnClickListener() {
 
             @Override
 
             public void onClick(View v) {
-                Intent post_page_intent = new Intent(PostActivity.this, PostForm1Activity.class);
+                Intent post_page_intent = new Intent(PostActivity.this, PostFormActivity.class);
                 startActivity(post_page_intent);
             }
 
         });
+/*
+        create_post.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+
+            public void onClick(View v) {
+                Intent post_page_intent = new Intent(PostActivity.this, PostFormActivity.class);
+                startActivity(post_page_intent);
+            }
+
+        });*/
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
