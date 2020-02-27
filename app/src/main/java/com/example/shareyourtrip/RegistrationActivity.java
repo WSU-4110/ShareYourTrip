@@ -15,12 +15,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.util.Patterns;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
 
 public class RegistrationActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     EditText txt_FirstName;
     EditText txt_LastName;
@@ -84,39 +92,28 @@ public class RegistrationActivity extends AppCompatActivity {
                     alertDisplay(RegistrationActivity.this,"Invalid Email address!",false);
                 }
                 else{
-                    try {
-                        /*
-                        SQLiteDatabase sytdatabase = openOrCreateDatabase("shareyourtripdb", MODE_PRIVATE, null);
-                        sytdatabase.execSQL("CREATE TABLE IF NOT EXISTS USERS(\n" +
-                                "firstname VARCHAR (50) NOT NULL,\n" +
-                                "lastname VARCHAR (50) NOT NULL,\n" +
-                                "email VARCHAR (50) UNIQUE NOT NULL,\n" +
-                                "username VARCHAR (50) UNIQUE NOT NULL,\n" +
-                                "user_password VARCHAR (50) NOT NULL,\n" +
-                                "isbanned INTEGER,\n" +
-                                "PRIMARY KEY (username)\n" +
-                                ");");
-                        sytdatabase.execSQL("INSERT INTO USERS VALUES('" + txt_FirstName.getText() + "','" + txt_LastName.getText() + "','" + txt_Email.getText() + "','" + txt_Username.getText() + "','" + txt_Password.getText() + "','0')");
-                         */
-                        String test = getApplicationContext().getDatabasePath("shareyourtripdb").toString();
-                        SYTDatabaseHandler dbHander = new SYTDatabaseHandler(getApplicationContext(),"shareyourtripdb",null,1);
-                        dbHander.insertUser(newUser);
-                        alertDisplay(RegistrationActivity.this,"Congratulations! You are officially a ShareYourTrip user!",true);
+                    mAuth = FirebaseAuth.getInstance();
+
+                    if(mAuth.getCurrentUser() != null){
                         Intent login_intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                         startActivity(login_intent);
+                        finish();
                     }
-                    catch (SQLiteCantOpenDatabaseException ex){
-                        alertDisplay(RegistrationActivity.this,"Cannot open database!",false);
-                    }
-                    catch (SQLiteConstraintException ex){
-                        if(ex.getMessage().contains("username"))
-                            alertDisplay(RegistrationActivity.this,"Entered username is already existing!",false);
-                        if(ex.getMessage().contains("email"))
-                            alertDisplay(RegistrationActivity.this,"Entered email is already existing!",false);
-                    }
-                    catch (SQLiteException ex){
-                        alertDisplay(RegistrationActivity.this,"A database exception happened! Try again later!",false);
-                    }
+
+                    mAuth.createUserWithEmailAndPassword(newUser.getEmailAddress(),newUser.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                alertDisplay(RegistrationActivity.this,"Congratulations! You are officially a ShareYourTrip user!",true);
+                                Intent login_intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                startActivity(login_intent);
+                            }
+                            else{
+                                alertDisplay(RegistrationActivity.this,task.getException().getMessage(),false);
+                            }
+                        }
+                    });
+
                 }
             }
         });
