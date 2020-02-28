@@ -71,6 +71,14 @@ public class RegistrationActivity extends AppCompatActivity {
         txt_ConfirmPassword = (EditText)findViewById(R.id.txtConfirmPassword);
         btn_Register = (Button) findViewById(R.id.btnRegister);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser().getEmail().equals(txt_Email.getText().toString()) ){
+            Intent login_intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+            startActivity(login_intent);
+            finish();
+        }
+
         btn_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +90,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         txt_ConfirmPassword.getText().toString(),
                         false);
 
+
                 if(!txt_Password.getText().toString().equals(txt_ConfirmPassword.getText().toString())){
                     alertDisplay(RegistrationActivity.this,"Entered password and confrim password do not match!",false);
                 }
@@ -91,14 +100,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 else if(!isValidEmail(txt_Email.getText())){
                     alertDisplay(RegistrationActivity.this,"Invalid Email address!",false);
                 }
-                else{
-                    mAuth = FirebaseAuth.getInstance();
-
+               else{
+                    /*mAuth = FirebaseAuth.getInstance();
                     if(mAuth.getCurrentUser() != null){
                         Intent login_intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                         startActivity(login_intent);
                         finish();
-                    }
+                    }*/
 
                     mAuth.createUserWithEmailAndPassword(newUser.getEmailAddress(),newUser.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
