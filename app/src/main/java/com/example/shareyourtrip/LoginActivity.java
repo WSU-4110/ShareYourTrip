@@ -1,5 +1,6 @@
 package com.example.shareyourtrip;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import static com.example.shareyourtrip.RegistrationActivity.alertDisplay;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     // Variables
     EditText user_username;
@@ -32,10 +42,24 @@ public class LoginActivity extends AppCompatActivity {
         m_loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homepage_Intent = new Intent(LoginActivity.this, HomePageActivity.class);
-                startActivity(homepage_Intent);
-                user_username.getText().clear();
-                user_password.getText().clear();
+                String username = user_username.getText().toString();
+                String password = user_password.getText().toString();
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Intent homepage_Intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                            startActivity(homepage_Intent);
+                            user_username.getText().clear();
+                            user_password.getText().clear();
+                        }
+                        else{
+                            alertDisplay(LoginActivity.this,task.getException().getMessage(),false);
+                        }
+                    }
+                });
+
             }
         });
 
