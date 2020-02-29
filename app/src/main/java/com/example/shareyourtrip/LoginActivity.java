@@ -42,10 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         m_loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = user_email.getText().toString();
+                String email = user_email.getText().toString();
                 String password = user_password.getText().toString();
                 mAuth = FirebaseAuth.getInstance();
-                mAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
