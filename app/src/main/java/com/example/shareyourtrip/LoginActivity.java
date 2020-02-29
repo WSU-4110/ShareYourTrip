@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = user_username.getText().toString();
                 String password = user_password.getText().toString();
+                mAuth = FirebaseAuth.getInstance();
                 
 
             }
