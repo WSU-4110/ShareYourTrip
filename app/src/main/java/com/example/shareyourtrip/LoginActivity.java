@@ -48,7 +48,15 @@ public class LoginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                       
+                        if(task.isSuccessful()){
+                            Intent homepage_Intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                            startActivity(homepage_Intent);
+                            user_username.getText().clear();
+                            user_password.getText().clear();
+                        }
+                        else{
+                            alertDisplay(LoginActivity.this,task.getException().getMessage(),false);
+                        }
                     }
                 });
 
