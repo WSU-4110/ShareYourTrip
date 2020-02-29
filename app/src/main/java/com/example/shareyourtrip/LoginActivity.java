@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     // Variables
-    EditText user_username;
+    EditText user_email;
     EditText user_password;
     Button m_loginbutton;
     Button m_registerbutton;
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        user_username = (EditText)findViewById(R.id.username);
+        user_email = (EditText)findViewById(R.id.username);
         user_password = (EditText)findViewById(R.id.password);
         m_loginbutton = (Button)findViewById(R.id.Login_Button);
         m_registerbutton = (Button)findViewById(R.id.Register_Button);
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         m_loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = user_username.getText().toString();
+                String username = user_email.getText().toString();
                 String password = user_password.getText().toString();
                 mAuth = FirebaseAuth.getInstance();
                 mAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Intent homepage_Intent = new Intent(LoginActivity.this, HomePageActivity.class);
                             startActivity(homepage_Intent);
-                            user_username.getText().clear();
+                            user_email.getText().clear();
                             user_password.getText().clear();
                         }
                         else{
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent register_Intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                 startActivity(register_Intent);
-                user_username.getText().clear();
+                user_email.getText().clear();
                 user_password.getText().clear();
             }
         });
