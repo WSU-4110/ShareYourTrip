@@ -1,8 +1,11 @@
 package com.example.shareyourtrip;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +31,21 @@ public class LoginActivity extends AppCompatActivity {
     Button m_registerbutton;
     TextView m_forgotpassword;
 
+    public static void alertDisplay(Context context, String msg, boolean success){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        if(success)
+            alertDialog.setTitle("Successful login");
+        else
+            alertDialog.setTitle("Unsuccessful login");
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
