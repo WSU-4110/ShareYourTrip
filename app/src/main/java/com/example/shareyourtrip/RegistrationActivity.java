@@ -101,13 +101,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     alertDisplay(RegistrationActivity.this,"Invalid Email address!",false);
                 }
                else{
-                    /*mAuth = FirebaseAuth.getInstance();
-                    if(mAuth.getCurrentUser() != null){
-                        Intent login_intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                        startActivity(login_intent);
-                        finish();
-                    }*/
-
                     mAuth.createUserWithEmailAndPassword(newUser.getEmailAddress(),newUser.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
