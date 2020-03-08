@@ -9,6 +9,8 @@ public class User {
     private String confirmPassword;
     private boolean isBanned;
 
+    public User() {}
+
     public User(String firstName, String lastName, String emailAddress, String usename, String password, String confirmPassword, boolean isBanned) {
         this.firstName = firstName;
         this.lastName = lastName;
