@@ -62,22 +62,25 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = user_email.getText().toString();
                 String password = user_password.getText().toString();
-                mAuth = FirebaseAuth.getInstance();
-                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Intent homepage_Intent = new Intent(LoginActivity.this, HomePageActivity.class);
-                            startActivity(homepage_Intent);
-                            user_email.getText().clear();
-                            user_password.getText().clear();
+                if(user_email.getText().toString().equals("")){
+                    alertDisplay(LoginActivity.this,"Some information is missing!",false);
+                }
+                else {
+                    mAuth = FirebaseAuth.getInstance();
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Intent homepage_Intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                                startActivity(homepage_Intent);
+                                user_email.getText().clear();
+                                user_password.getText().clear();
+                            } else {
+                                alertDisplay(LoginActivity.this, task.getException().getMessage(), false);
+                            }
                         }
-                        else{
-                            alertDisplay(LoginActivity.this,task.getException().getMessage(),false);
-                        }
-                    }
-                });
-
+                    });
+                }
             }
         });
 

@@ -73,7 +73,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        if(mAuth.getCurrentUser().getEmail().equals(txt_Email.getText().toString()) ){
+        if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().getEmail().equals(txt_Email.getText().toString()) ){
             Intent login_intent = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(login_intent);
             finish();
