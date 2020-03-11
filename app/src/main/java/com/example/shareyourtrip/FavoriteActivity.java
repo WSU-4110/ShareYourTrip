@@ -16,10 +16,11 @@ public class FavoriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
+        PostView postView = new PostView(this);
+
+        //Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-
         bottomNavigationView.setSelectedItemId(R.id.favorite_nav);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
