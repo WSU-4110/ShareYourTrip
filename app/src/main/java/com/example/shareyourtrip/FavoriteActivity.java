@@ -11,12 +11,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FavoriteActivity extends AppCompatActivity {
 
+    private PostView postView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
-        PostView postView = new PostView(this);
+        postView = (PostView) findViewById(R.id.customview);
+
 
         //Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
