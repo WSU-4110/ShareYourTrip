@@ -24,12 +24,12 @@
         app:layout_constraintGuide_end="25dp" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/emailaddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="270dp"
         android:background="@drawable/login_edit_text"
-        android:hint="Username"
+        android:hint="Email Address"
         android:padding="10dp"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
@@ -41,13 +41,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:inputType="textPassword"
         android:background="@drawable/login_edit_text"
         android:hint="Password"
         android:padding="10dp"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/username" />
+        app:layout_constraintTop_toBottomOf="@id/emailaddress" />
 
     <Button
         android:id="@+id/Login_Button"

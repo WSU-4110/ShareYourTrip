@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "891394003757",
+    "firebase_url": "https://shareyourtrip-ebed2.firebaseio.com",
+    "project_id": "shareyourtrip-ebed2",
+    "storage_bucket": "shareyourtrip-ebed2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891394003757:android:f663ec48cb4efffa56b9a4",
+        "android_client_info": {
+          "package_name": "com.example.shareyourtrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891394003757-tusuq4fgi1haioj84j1ng4eqkcokg82v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shareyourtrip",
+            "certificate_hash": "4c465c661d3b60c9c1815c2a672e1b9c17c6fd09"
+          }
+        },
+        {
+          "client_id": "891394003757-ft0usvibkoldnlkcajdjee1hgkvvkqpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADGjVh5UgPSjdqO-O_SRGfCqBUnKgh7OY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891394003757-ft0usvibkoldnlkcajdjee1hgkvvkqpe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
