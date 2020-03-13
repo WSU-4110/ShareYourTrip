@@ -35,7 +35,23 @@ public class SearchActivity extends AppCompatActivity {
     // Edit text variables
     EditText txt_City;
     EditText txt_State;
-    
+
+    // Function to give alert
+    public static void alertDisplay(Context context, String msg, boolean success){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        if(success)
+            alertDialog.setTitle("Successful Search");
+        else
+            alertDialog.setTitle("Unsuccessful Search");
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
