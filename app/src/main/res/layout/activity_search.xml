@@ -81,8 +81,21 @@
                 app:layout_constraintStart_toStartOf="@id/centerright_guideline"
                 app:layout_constraintTop_toTopOf="@id/City" />
 
-            sta
-            </Spinner>
+
+            <Button
+                android:id="@+id/Search_Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/ButtonColor"
+                android:padding="10dp"
+                android:text="Search"
+                android:textSize="20dp"
+                android:drawableRight="@drawable/ic_search"
+                app:layout_constraintEnd_toEndOf="@id/right_guideline"
+                app:layout_constraintStart_toStartOf="@id/centerright_guideline"
+                app:layout_constraintTop_toBottomOf="@id/City" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
