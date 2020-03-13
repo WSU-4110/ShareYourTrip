@@ -15,20 +15,35 @@ public class SettingActivity extends AppCompatActivity {
 
     // Variables
     Button m_logoutbutton;
+    Button m_contactbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+
+        // Links this variable with the front end variable Logout_Button
         m_logoutbutton = (Button)findViewById(R.id.Logout_Button);
 
-        // Login button
+        // Function that checks the logout button
         m_logoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent login_Intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(login_Intent);
+            }
+        });
+
+        // Links this variable with the front end variable Contact_Button
+        m_contactbutton = (Button)findViewById(R.id.Contact_Button);
+
+        // Function that checks the contact us button
+        m_contactbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent contact_Intent = new Intent(SettingActivity.this, ContactActivity.class);
+                startActivity(contact_Intent);
             }
         });
 
