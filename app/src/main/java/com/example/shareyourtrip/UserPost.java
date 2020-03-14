@@ -1,11 +1,7 @@
 package com.example.shareyourtrip;
 
 public class UserPost {
-    private String city;
-    private String state;
-    private String category;
-    private String title;
-    private String description;
+    private String city, state, category, title, description;
 
     public UserPost() {
         this.city = "";

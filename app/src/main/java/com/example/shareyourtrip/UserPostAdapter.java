@@ -30,20 +30,31 @@ import java.util.List;
             }
         }
 
-
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
+        public UserPostAdapter(List<Movie> moviesList) {
+            this.postList = postList;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.post_list_row, parent, false);
+
+            return new MyViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            UserPost post = postList.get(position);
+            holder.city.setText(post.getCity());
+            holder.state.setText(post.getState());
+            holder.category.setText(post.getCategory());
+            holder.title.setText(post.getTitle());
+            holder.description.setText(post.getDescription());
 
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return postList.size();
         }
     }
