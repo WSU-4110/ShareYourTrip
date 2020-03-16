@@ -19,9 +19,18 @@ public class SYTDatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME="shareyourtripdb";
     private ArrayList<String> tables = new ArrayList<String>();
 
-    public SYTDatabaseHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    // making the consteructor private to implement singleton design pattern
+   private SYTDatabaseHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, version);
         this.context = context;
+    }
+
+    //adding get instance method to return one instance of this class in the singleton design pattern
+    public static SYTDatabaseHandler getInstance(Context context){
+        if(instance==null){
+            instance = new SYTDatabaseHandler(context,null,null,1);
+        }
+        return instance;
     }
 
     @Override
