@@ -1,13 +1,13 @@
 package com.example.shareyourtrip;
 
-public class UserPost {
+public class Post {
     private String city;
     private String state;
     private String category;
     private String title;
     private String description;
 
-    public UserPost() {
+    public Post() {
         this.city = "";
         this.state = "";
         this.category = "";
@@ -15,7 +15,7 @@ public class UserPost {
         this.description = "";
     }
 
-    public UserPost(String city, String state, String category, String title, String description) {
+    public Post(String city, String state, String category, String title, String description) {
         this.city = city;
         this.state = state;
         this.category = category;
