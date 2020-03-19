@@ -4,29 +4,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 //This code showcases the design pattern "Adapters"
 
 /*
     This class is an adapter for the UserPost object. UserPostAdapter is the UI element
-    which will display the contents of posts stored in postList. The UserPost class
+    which will display the contents of posts stored in postList. The UserPost class contains
+    the information to be displayed, and the post_list_row.xml file lays out the actual structure
+    of the adapter.
  */
 
 public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyViewHolder> {
 
         //This will be a list of user posts to display to the users
-        private List<UserPost> postList;
+        private List<UserPost> postList = new ArrayList<>();
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView city, state, category, title, description;
+            public TextView location, category, title, description;
 
             //Constructor of the ViewHolder, initializes TextViews
             public MyViewHolder(View view) {
                 super(view);
-                city = (TextView) view.findViewById(R.id.city);
-                state = (TextView) view.findViewById(R.id.state);
+                location = (TextView) view.findViewById(R.id.location);
                 category = (TextView) view.findViewById(R.id.category);
                 title = (TextView) view.findViewById(R.id.title);
                 description = (TextView) view.findViewById(R.id.description);
@@ -34,7 +37,7 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
         }
 
         //Copy constructor
-        public UserPostAdapter(List<UserPost> moviesList) {
+        public UserPostAdapter(List<UserPost> postList) {
             this.postList = postList;
         }
 
@@ -52,8 +55,7 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
             UserPost post = postList.get(position);
-            holder.city.setText(post.getCity());
-            holder.state.setText(post.getState());
+            holder.location.setText(post.getCity() + ", " + post.getState());
             holder.category.setText(post.getCategory());
             holder.title.setText(post.getTitle());
             holder.description.setText(post.getDescription());

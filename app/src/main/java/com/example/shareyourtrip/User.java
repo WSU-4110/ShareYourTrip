@@ -71,9 +71,7 @@ public class User {
         return confirmPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+    public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
 
     public boolean isBanned() {
         return isBanned;
@@ -82,4 +80,8 @@ public class User {
     public void setBanned(boolean banned) {
         isBanned = banned;
     }
+
+    public List<UserPost> getFavList() { return favList; }
+
+    public void setFavList(List<UserPost> favList) { this.favList = favList; }
 }
