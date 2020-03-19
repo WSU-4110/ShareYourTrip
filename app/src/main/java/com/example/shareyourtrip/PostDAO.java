@@ -6,20 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.google.firebase.FirebaseApiNotAvailableException;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.sql.Connection;
-/*import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-*/
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,38 +18,40 @@ public class PostDAO extends SQLiteOpenHelper {
     private ResultSet resultSet = null;
 */
     private static final String dbname = "ShareYourTrip.db";
-    private FirebaseAuth auth;
+    private static final int DB_VERSION =4;
+    private String sql;
 
 
-    /*public PostDAO(Context context) {
-        PostDAO(context, dbname, factory, version)
-    }*/
-
-    public PostDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, dbname, null, 1);
+    public PostDAO(Context context) {
+        super(context, dbname, null, DB_VERSION);
+        //onCreate(this.getWritableDatabase());
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        auth = FirebaseAuth.getInstance();
-        String sql = "create table if not exists post" +
-                "(id integer primary key autoincrement,"+
-                "city text NOT NULL,"+
-                "state text NOT NULL,"+
-                "category text NOT NULL,"+
-                "title text NOT NULL,"+
-                "description text not null,"+
+    public void onCreate(SQLiteDatabase db) throws SQLiteException  {
+        sql = "create table if not exists post " +
+                "(id integer primary key autoincrement, "+
+                "city text NOT NULL, "+
+                "state text NOT NULL, "+
+                "category text NOT NULL, "+
+                "title text NOT NULL, "+
+                "description text not null, "+
                 "user text not null);";
         db.execSQL(sql);
+        /*db.beginTransaction();
+        db.execSQL(sql);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();*/
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) throws SQLiteException {
         db.execSQL("drop table if exists post");
         onCreate(db);
     }
 
-    public boolean insert(Post post) throws SQLException {
+    public boolean insert(Post post) throws SQLiteException  {
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
 
         ContentValues cv = new ContentValues();
@@ -71,7 +60,7 @@ public class PostDAO extends SQLiteOpenHelper {
         cv.put("category", post.getCategory());
         cv.put("title", post.getTitle());
         cv.put("description", post.getDescription());
-        cv.put("user", auth.getCurrentUser().getEmail());
+        cv.put("user", post.getUser());
 
         long result = db.insert("post", null, cv);
 
@@ -110,21 +99,32 @@ public class PostDAO extends SQLiteOpenHelper {
         return rowDeleted;*/
     }
 
+    public boolean insert(String city, String state, String category, String title, String description, String user) throws SQLException {
+        return this.insert(new Post(city, state, category, title, description, user));
+    }
+
     public Post getPost(String query, String[] col) throws SQLiteException {
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
-        Post post = null;
+        Post post = new Post();
         final Cursor cursor = db.rawQuery(query, col);
 
         if (cursor != null) {
-            int id = cursor.getInt(0);
-            String city = cursor.getString(1);
+
+            post.setCity(cursor.getString(1));
+            post.setState(cursor.getString(2));
+            post.setCategory(cursor.getString(3));
+            post.setTitle(cursor.getString(4));
+            post.setDescription(cursor.getString(5));
+            post.setUser(cursor.getString(6));
+
+           /* String city = cursor.getString(1);
             String state = cursor.getString(2);
             String category = cursor.getString(3);
             String title = cursor.getString(4);
             String description = cursor.getString(5);
             String user = cursor.getString(6);
 
-            post = new Post(city, state, category, title, description);
+            post = new Post(city, state, category, title, description, user);*/
         }
 
         return post;
@@ -145,26 +145,24 @@ public class PostDAO extends SQLiteOpenHelper {
         List<Post> listPost = new ArrayList<Post>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         final Cursor cursor = db.rawQuery(query, col);
-        int id = -1;
-        String city = null;
-        String state = null;
-        String category = null;
-        String title = null;
-        String description = null;
-        String user=null;
+        String city;
+        String state;
+        String category;
+        String title;
+        String description;
+        String user;
 
-        Post post = null;
+        //Post post;
 
         do {
-            id = cursor.getInt(0);
-            city = cursor.getString(1);
+            city = cursor.getString(1); //need to start one after the id column. if 0->1; if 1->2
             state = cursor.getString(2);
             category = cursor.getString(3);
             title = cursor.getString(4);
             description = cursor.getString(5);
             user = cursor.getString(6);
 
-            post = new Post(city, state, category, title, description);
+            Post post = new Post(city, state, category, title, description, user);
             listPost.add(post);
 
         }while (!cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
@@ -191,6 +189,7 @@ public class PostDAO extends SQLiteOpenHelper {
         statement.close();
         disconnect();*/
     }
+    
 
    /* protected void disconnect() throws SQLException {
         if (connect != null && !connect.isClosed()) {

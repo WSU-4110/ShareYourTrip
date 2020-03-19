@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.sql.SQLException;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -24,18 +26,25 @@ public class PostActivity extends AppCompatActivity {
     TextInputLayout title  = null;
     EditText description  = null;
     FloatingActionButton button_cancel;
+    //String user;
+    PostDAO postDAO;
+    boolean flag = false;
+    //private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        city = (TextInputLayout)findViewById(R.id.city);
+/*        city = (TextInputLayout)findViewById(R.id.city);
         state  = (TextInputLayout)findViewById(R.id.state);
         category  = (TextInputLayout)findViewById(R.id.category);
         title  = (TextInputLayout)findViewById(R.id.title);
-        description  = (EditText)findViewById(R.id.description);
-        button_cancel = findViewById(R.id.button_cancel);
+        description  = (EditText)findViewById(R.id.description);*/
+        button_cancel = (FloatingActionButton)findViewById(R.id.button_cancel);
         button_add_post = (FloatingActionButton)findViewById(R.id.button_add_post);
+        postDAO = new PostDAO(this);
+    //    auth = FirebaseAuth.getInstance();
 
         // check button //must update
         button_add_post.setOnClickListener(new View.OnClickListener() {
@@ -49,11 +58,29 @@ public class PostActivity extends AppCompatActivity {
                 category  = (TextInputLayout)findViewById(R.id.category);
                 title  = (TextInputLayout)findViewById(R.id.title);
                 description  = (EditText)findViewById(R.id.description);
+                //user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-                // if()
 
-                Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
-                startActivity(post_page_intent);
+                try {
+                    flag = postDAO.insert(city.getEditText().getText().toString(),
+                            state.getEditText().getText().toString(),
+                            category.getEditText().getText().toString(),
+                            title.getEditText().getText().toString(),
+                            description.getText().toString(),
+                            FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                if(flag){
+                    Intent post_page_intent = new Intent(PostActivity.this, ProfileActivity.class);
+                    startActivity(post_page_intent);
+                }else{
+                    //need to print error message to screen
+                    Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
+                    startActivity(post_page_intent);
+                }
+
             }
 
         });

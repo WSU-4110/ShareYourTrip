@@ -6,6 +6,7 @@ public class Post {
     private String category;
     private String title;
     private String description;
+    private String user;
 
     public Post() {
         this.city = "";
@@ -13,14 +14,16 @@ public class Post {
         this.category = "";
         this.title = "";
         this.description = "";
+        this.user = "";
     }
 
-    public Post(String city, String state, String category, String title, String description) {
+    public Post(String city, String state, String category, String title, String description, String user) {
         this.city = city;
         this.state = state;
         this.category = category;
         this.title = title;
         this.description = description;
+        this.user = user;
     }
 
     public String getCity() {
@@ -43,6 +46,10 @@ public class Post {
         return description;
     }
 
+    public String getUser() {
+        return user;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -61,5 +68,9 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setUser(String user) {
+        this.description = user;
     }
 }
