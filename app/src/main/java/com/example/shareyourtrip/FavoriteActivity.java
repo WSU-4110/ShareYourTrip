@@ -86,13 +86,13 @@ public class FavoriteActivity extends AppCompatActivity {
         UserPost post = new UserPost("Plymouth", "MI", "Park", "McClumpha", "Lit");
         favList.add(post);
 
-        post = new UserPost("1", "2", "3", "4", "5");
+        post = new UserPost("City", "State", "Category", "Title", "Desc");
         favList.add(post);
 
-        post = new UserPost("1", "2", "3", "4", "5");
+        post = new UserPost("City", "State", "Category", "Title", "Desc");
         favList.add(post);
 
-        post = new UserPost("1", "2", "3", "4", "5");
+        post = new UserPost("City", "State", "Category", "Title", "Desc");
         favList.add(post);
 
         postAdapter.notifyDataSetChanged();
