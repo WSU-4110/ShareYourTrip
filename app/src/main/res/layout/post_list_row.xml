@@ -26,19 +26,19 @@
         android:id="@+id/state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title" />
+        android:layout_below="@id/city" />
 
     <TextView
         android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title" />
+        android:layout_below="@id/state" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title" />
+        android:layout_below="@id/category" />
 
     <TextView
         android:id="@+id/description"
@@ -46,10 +46,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Favorite" />
 
 </RelativeLayout>
