@@ -4,12 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -20,6 +25,21 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        PostDAO postDAO = new PostDAO(this);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("select * from post where ");
+        stringBuilder.append("user='");
+        stringBuilder.append(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        stringBuilder.append("'");
+
+        try {
+            List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
+        }
+        catch (SQLiteException e){
+            Toast.makeText(ProfileActivity.this,"There is a database problem!"+e.getMessage(),Toast.LENGTH_LONG).show();;
+        }
 
         m_settingsbutton = (Button)findViewById(R.id.Settings_Button);
 
