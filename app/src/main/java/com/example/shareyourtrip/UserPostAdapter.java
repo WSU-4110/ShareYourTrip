@@ -59,7 +59,6 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
             holder.category.setText(post.getCategory());
             holder.title.setText(post.getTitle());
             holder.description.setText(post.getDescription());
-
         }
 
         //Returns size of list of posts
