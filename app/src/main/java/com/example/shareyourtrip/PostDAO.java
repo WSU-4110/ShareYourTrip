@@ -153,20 +153,23 @@ public class PostDAO extends SQLiteOpenHelper {
         String user;
 
         //Post post;
+        int cc = cursor.getColumnCount();
+        int count = cursor.getCount();
+        if(count>0) {
+            cursor.moveToFirst();
+            do {
+                city = cursor.getString(1); //need to start one after the id column. if 0->1; if 1->2
+                state = cursor.getString(2);
+                category = cursor.getString(3);
+                title = cursor.getString(4);
+                description = cursor.getString(5);
+                user = cursor.getString(6);
 
-        do {
-            city = cursor.getString(1); //need to start one after the id column. if 0->1; if 1->2
-            state = cursor.getString(2);
-            category = cursor.getString(3);
-            title = cursor.getString(4);
-            description = cursor.getString(5);
-            user = cursor.getString(6);
+                Post post = new Post(city, state, category, title, description, user);
+                listPost.add(post);
 
-            Post post = new Post(city, state, category, title, description, user);
-            listPost.add(post);
-
-        }while (!cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
-
+            } while (cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
+        }
         return listPost;/*
 
         connect_func();
