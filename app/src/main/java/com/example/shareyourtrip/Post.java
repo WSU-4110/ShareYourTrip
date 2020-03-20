@@ -1,26 +1,29 @@
 package com.example.shareyourtrip;
 
-public class UserPost {
+public class Post {
     private String city;
     private String state;
     private String category;
     private String title;
     private String description;
+    private String user;
 
-    public UserPost() {
+    public Post() {
         this.city = "";
         this.state = "";
         this.category = "";
         this.title = "";
         this.description = "";
+        this.user = "";
     }
 
-    public UserPost(String city, String state, String category, String title, String description) {
+    public Post(String city, String state, String category, String title, String description, String user) {
         this.city = city;
         this.state = state;
         this.category = category;
         this.title = title;
         this.description = description;
+        this.user = user;
     }
 
     public String getCity() {
@@ -43,6 +46,10 @@ public class UserPost {
         return description;
     }
 
+    public String getUser() {
+        return user;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -61,5 +68,9 @@ public class UserPost {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setUser(String user) {
+        this.description = user;
     }
 }
