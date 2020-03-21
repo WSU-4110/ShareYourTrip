@@ -1,52 +1,99 @@
 package com.example.shareyourtrip;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
+import java.sql.SQLException;
 
 public class PostActivity extends AppCompatActivity {
 
-    //
-    // Variables for post page
-//    FloatingActionButton create_post;
+    // Variables
+    FloatingActionButton button_add_post;
+    TextInputLayout city = null;
+    TextInputLayout state  = null;
+    TextInputLayout category  = null;
+    TextInputLayout title  = null;
+    EditText description  = null;
+    FloatingActionButton button_cancel;
+    //String user;
+    PostDAO postDAO;
+    boolean flag = false;
+    //private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+/*        city = (TextInputLayout)findViewById(R.id.city);
+        state  = (TextInputLayout)findViewById(R.id.state);
+        category  = (TextInputLayout)findViewById(R.id.category);
+        title  = (TextInputLayout)findViewById(R.id.title);
+        description  = (EditText)findViewById(R.id.description);*/
+        button_cancel = (FloatingActionButton)findViewById(R.id.button_cancel);
+        button_add_post = (FloatingActionButton)findViewById(R.id.button_add_post);
+        postDAO = new PostDAO(this);
+    //    auth = FirebaseAuth.getInstance();
 
-        FloatingActionButton create_post = (FloatingActionButton)findViewById(R.id.button_create_post);
-
-        create_post.setOnClickListener(new View.OnClickListener() {
+        // check button //must update
+        button_add_post.setOnClickListener(new View.OnClickListener() {
 
             @Override
 
             public void onClick(View v) {
-                Intent post_page_intent = new Intent(PostActivity.this, PostFormActivity.class);
-                startActivity(post_page_intent);
+                //getting variables from user input
+                city = (TextInputLayout)findViewById(R.id.city);
+                state  = (TextInputLayout)findViewById(R.id.state);
+                category  = (TextInputLayout)findViewById(R.id.category);
+                title  = (TextInputLayout)findViewById(R.id.title);
+                description  = (EditText)findViewById(R.id.description);
+                //user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+
+                try {
+                    flag = postDAO.insert(city.getEditText().getText().toString(),
+                            state.getEditText().getText().toString(),
+                            category.getEditText().getText().toString(),
+                            title.getEditText().getText().toString(),
+                            description.getText().toString(),
+                            FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                if(flag){
+                    Intent post_page_intent = new Intent(PostActivity.this, ProfileActivity.class);
+                    startActivity(post_page_intent);
+                }else{
+                    //need to print error message to screen
+                    Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
+                    startActivity(post_page_intent);
+                }
+
             }
 
         });
-/*
-        create_post.setOnClickListener(new View.OnClickListener() {
 
+
+        // cancel button
+        button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View v) {
-                Intent post_page_intent = new Intent(PostActivity.this, PostFormActivity.class);
-                startActivity(post_page_intent);
+                Intent register_Intent = new Intent(PostActivity.this, HomePageActivity.class);
+                startActivity(register_Intent);
             }
-
-        });*/
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
