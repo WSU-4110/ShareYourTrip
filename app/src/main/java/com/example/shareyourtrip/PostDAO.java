@@ -118,8 +118,9 @@ public class PostDAO extends SQLiteOpenHelper {
                 title = cursor.getString(4);
                 description = cursor.getString(5);
                 user = cursor.getString(6);
+                date = cursor.getString(7);
 
-                Post post = new Post(city, state, category, title, description, user);
+                Post post = new Post(city, state, category, title, description, user, date);
                 listPost.add(post);
 
             } while (cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
