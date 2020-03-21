@@ -17,7 +17,7 @@ import java.util.List;
     of the adapter.
  */
 
-public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
         //This will be a list of user posts to display to the users
         private List<Post> postList = new ArrayList<>();
@@ -37,7 +37,7 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
         }
 
         //Copy constructor
-        public UserPostAdapter(List<Post> postList) {
+        public PostAdapter(List<Post> postList) {
             this.postList = postList;
         }
 
