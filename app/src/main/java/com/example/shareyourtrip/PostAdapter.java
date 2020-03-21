@@ -22,6 +22,7 @@ import java.util.List;
     of the adapter.
  */
 
+//Todo: Make fav button do something
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
         //This will be a list of user posts to display to the users
