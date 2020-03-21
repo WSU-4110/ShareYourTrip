@@ -20,7 +20,7 @@
         android:layout_alignParentTop="true"
         android:paddingLeft="8dp"
         android:paddingTop="5dp"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:background="@drawable/post_background"
         />
