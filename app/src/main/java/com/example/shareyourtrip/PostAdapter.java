@@ -2,7 +2,11 @@ package com.example.shareyourtrip;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+import android.widget.Toolbar;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,11 +24,12 @@ import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
         //This will be a list of user posts to display to the users
-        private List<Post> postList = new ArrayList<>();
+        private List<Post> postList;
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView location, category, title, description;
+            public ToggleButton favButton;
 
             //Constructor of the ViewHolder, initializes TextViews
             public MyViewHolder(View view) {
@@ -33,6 +38,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 category = (TextView) view.findViewById(R.id.category);
                 title = (TextView) view.findViewById(R.id.title);
                 description = (TextView) view.findViewById(R.id.description);
+                favButton = (ToggleButton) view.findViewById(R.id.fav_button);
             }
         }
 
@@ -44,8 +50,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //Returns a ViewHolder given the context its parent is in
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.post_list_row, parent, false);
+
+
 
             return new MyViewHolder(itemView);
         }

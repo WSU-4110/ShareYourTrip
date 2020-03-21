@@ -17,12 +17,21 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:paddingLeft="8dp"
         android:paddingTop="5dp"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:background="@drawable/post_background"
+        />
+
+    <ToggleButton
+        android:id="@+id/fav_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_favorite"
         />
 
     <TextView
