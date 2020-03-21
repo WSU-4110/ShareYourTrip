@@ -1,5 +1,7 @@
 package com.example.shareyourtrip;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,6 +18,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.sql.SQLException;
+import java.util.*;
+import java.text.*;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -30,6 +35,19 @@ public class PostActivity extends AppCompatActivity {
     PostDAO postDAO;
     boolean flag = false;
     //private FirebaseAuth auth;
+
+    public static void alertDisplay(Context context, String msg, boolean success){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Post Not Added");
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
 
 
     @Override
@@ -57,25 +75,27 @@ public class PostActivity extends AppCompatActivity {
                 category  = findViewById(R.id.category);
                 title  = findViewById(R.id.title);
                 description  = findViewById(R.id.description);
+                SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String str_date = date.format(new Date());
+                System.out.println(str_date);
 
-                try {
-                    flag = postDAO.insert(city.getEditText().getText().toString(),
-                            state.getEditText().getText().toString(),
-                            category.getEditText().getText().toString(),
-                            title.getEditText().getText().toString(),
-                            description.getText().toString(),
-                            FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                    //System.out.print(date.format(new Date().toString()));
+                flag = postDAO.insert(city.getEditText().getText().toString(),
+                        state.getEditText().getText().toString(),
+                        category.getEditText().getText().toString(),
+                        title.getEditText().getText().toString(),
+                        description.getText().toString(),
+                        FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                        str_date);// storing date in format YYYY-MM-DD HH:MM:SSl
 
                 if(flag){
                     Intent post_page_intent = new Intent(PostActivity.this, ProfileActivity.class);
                     startActivity(post_page_intent);
                 }else{
                     //need to print error message to screen
-                    Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
-                    startActivity(post_page_intent);
+                    //Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
+                    //startActivity(post_page_intent);
+                    alertDisplay(PostActivity.this, "Error! Missing information in one or more fields.",false);
                 }
 
             }
