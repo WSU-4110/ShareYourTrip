@@ -14,7 +14,6 @@
         android:text="Home Page"
         android:textColor="@color/White"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="260dp"
         android:textAlignment="center"
         />
 
