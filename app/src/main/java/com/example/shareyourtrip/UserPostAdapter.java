@@ -20,7 +20,7 @@ import java.util.List;
 public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyViewHolder> {
 
         //This will be a list of user posts to display to the users
-        private List<UserPost> postList = new ArrayList<>();
+        private List<Post> postList = new ArrayList<>();
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -37,7 +37,7 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
         }
 
         //Copy constructor
-        public UserPostAdapter(List<UserPost> postList) {
+        public UserPostAdapter(List<Post> postList) {
             this.postList = postList;
         }
 
@@ -54,7 +54,7 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
         //and put it in the TextViews
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            UserPost post = postList.get(position);
+            Post post = postList.get(position);
             holder.location.setText(post.getCity() + ", " + post.getState());
             holder.category.setText(post.getCategory());
             holder.title.setText(post.getTitle());

@@ -15,7 +15,7 @@ public class User {
     private boolean isBanned;
 
     //A list of the users favorite posts.
-    private List<UserPost> favList = new ArrayList<UserPost>();
+    private List<Post> favList = new ArrayList<Post>();
 
     public User(String firstName, String lastName, String emailAddress, String usename, String password, String confirmPassword, boolean isBanned) {
         this.firstName = firstName;
@@ -81,7 +81,7 @@ public class User {
         isBanned = banned;
     }
 
-    public List<UserPost> getFavList() { return favList; }
+    public List<Post> getFavList() { return favList; }
 
-    public void setFavList(List<UserPost> favList) { this.favList = favList; }
+    public void setFavList(List<Post> favList) { this.favList = favList; }
 }

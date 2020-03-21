@@ -23,7 +23,7 @@ import java.util.List;
 public class FavoriteActivity extends AppCompatActivity {
 
     //todo: Figure out how to reference users favList instead of using test list
-    private List<UserPost> favList = new ArrayList<>();
+    private List<Post> favList = new ArrayList<>();
     private RecyclerView recyclerView;
     private UserPostAdapter postAdapter;
 
@@ -83,16 +83,16 @@ public class FavoriteActivity extends AppCompatActivity {
     //Used for Testing
     private void preparePostData(){
 
-        UserPost post = new UserPost("Plymouth", "MI", "Park", "McClumpha", "Lit");
+        Post post = new Post("Plymouth", "MI", "Park", "McClumpha", "Lit", "Jeff");
         favList.add(post);
 
-        post = new UserPost("City", "State", "Category", "Title", "Desc");
+        post = new Post("City", "State", "Category", "Title", "Desc", "Author");
         favList.add(post);
 
-        post = new UserPost("City", "State", "Category", "Title", "Desc");
+        post = new Post("City", "State", "Category", "Title", "Desc", "Author");
         favList.add(post);
 
-        post = new UserPost("City", "State", "Category", "Title", "Desc");
+        post = new Post("City", "State", "Category", "Title", "Desc", "Author");
         favList.add(post);
 
         postAdapter.notifyDataSetChanged();
