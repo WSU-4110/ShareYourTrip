@@ -41,10 +41,9 @@ public class PostActivity extends AppCompatActivity {
         category  = (TextInputLayout)findViewById(R.id.category);
         title  = (TextInputLayout)findViewById(R.id.title);
         description  = (EditText)findViewById(R.id.description);*/
-        button_cancel = (FloatingActionButton)findViewById(R.id.button_cancel);
-        button_add_post = (FloatingActionButton)findViewById(R.id.button_add_post);
+        button_cancel = findViewById(R.id.button_cancel);
+        button_add_post = findViewById(R.id.button_add_post);
         postDAO = new PostDAO(this);
-    //    auth = FirebaseAuth.getInstance();
 
         // check button //must update
         button_add_post.setOnClickListener(new View.OnClickListener() {
@@ -53,13 +52,11 @@ public class PostActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 //getting variables from user input
-                city = (TextInputLayout)findViewById(R.id.city);
-                state  = (TextInputLayout)findViewById(R.id.state);
-                category  = (TextInputLayout)findViewById(R.id.category);
-                title  = (TextInputLayout)findViewById(R.id.title);
-                description  = (EditText)findViewById(R.id.description);
-                //user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
+                city = findViewById(R.id.city);
+                state  = findViewById(R.id.state);
+                category  = findViewById(R.id.category);
+                title  = findViewById(R.id.title);
+                description  = findViewById(R.id.description);
 
                 try {
                     flag = postDAO.insert(city.getEditText().getText().toString(),
