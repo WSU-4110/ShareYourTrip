@@ -9,22 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class PostDAO extends SQLiteOpenHelper {
-   /* private static final long serialVersionUID = 1L;
-    private Connection connect = null;
-    private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
-*/
     private static final String dbname = "ShareYourTrip.db";
-    private static final int DB_VERSION =4;
+    private static final int DB_VERSION =7;
     private String sql;
 
 
     public PostDAO(Context context) {
         super(context, dbname, null, DB_VERSION);
-        //onCreate(this.getWritableDatabase());
     }
 
     @Override
@@ -36,13 +30,9 @@ public class PostDAO extends SQLiteOpenHelper {
                 "category text NOT NULL, "+
                 "title text NOT NULL, "+
                 "description text not null, "+
-                "user text not null);";
+                "user text not null," +
+                "date text not null);"; //<-------------------------------------------- NEED TO ADD TABLE ATTRIBUTE FOR TIME
         db.execSQL(sql);
-        /*db.beginTransaction();
-        db.execSQL(sql);
-        db.setTransactionSuccessful();
-        db.endTransaction();
-        db.close();*/
     }
 
     @Override
@@ -61,46 +51,25 @@ public class PostDAO extends SQLiteOpenHelper {
         cv.put("title", post.getTitle());
         cv.put("description", post.getDescription());
         cv.put("user", post.getUser());
+        cv.put("date", post.getDate());
 
         long result = db.insert("post", null, cv);
 
-        if(result==-1){
+        if(result<=0){
             return false;
         }else{
             return true;
         }
-/*
-        String sql = "insert into  post(city,state,category,title,description) values (?, ?, ?, ?, ?)";
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.setString(1, post.getCity());
-        preparedStatement.setString(2, post.getState());
-        preparedStatement.setString(3, post.getCategory());
-        preparedStatement.setString(4, post.getTitle());
-        preparedStatement.setString(5, post.getDescription());
-
-//		preparedStatement.executeUpdate();
-
-        boolean rowInserted = preparedStatement.executeUpdate() > 0;
-        preparedStatement.close();
-//        disconnect();
-        return rowInserted;
     }
 
-    public boolean delete(int id) throws SQLException {
-        String sql = "DELETE FROM post WHERE id = ?";
-        connect_func();
-
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.setInt(1, id);
-
-        boolean rowDeleted = preparedStatement.executeUpdate() > 0;
-        preparedStatement.close();
-//        disconnect();
-        return rowDeleted;*/
-    }
-
-    public boolean insert(String city, String state, String category, String title, String description, String user) throws SQLException {
-        return this.insert(new Post(city, state, category, title, description, user));
+    public boolean insert(String city, String state, String category, String title, String description, String user, String date) {
+        Post post = new Post(city, state, category, title, description, user, date);
+        if(post.getCategory().replaceAll("\\s", "").isEmpty()||
+        post.getCity().replaceAll("\\s", "").isEmpty()|| post.getDate().replaceAll("\\s", "").isEmpty()||
+        post.getDescription().replaceAll("\\s", "").isEmpty()|| post.getState().replaceAll("\\s", "").isEmpty()||
+        post.getTitle().replaceAll("\\s", "").isEmpty()|| post.getUser().replaceAll("\\s", "").isEmpty()) {
+            return false;
+        }else{ return this.insert(post);}//<--------------------- NEED TO INSERT DATE TO STRING
     }
 
     public Post getPost(String query, String[] col) throws SQLiteException {
@@ -116,33 +85,17 @@ public class PostDAO extends SQLiteOpenHelper {
             post.setTitle(cursor.getString(4));
             post.setDescription(cursor.getString(5));
             post.setUser(cursor.getString(6));
-
-           /* String city = cursor.getString(1);
-            String state = cursor.getString(2);
-            String category = cursor.getString(3);
-            String title = cursor.getString(4);
-            String description = cursor.getString(5);
-            String user = cursor.getString(6);
-
-            post = new Post(city, state, category, title, description, user);*/
+            post.setDate(cursor.getString(7));//<------------------------------------- NEED TO GET DATE FROM COLUMN AND CONVERT TO STRING
         }
 
+        cursor.close();
+
         return post;
-
-        /*
-        connect_func();
-
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.setString(1, val1);
-        preparedStatement.setString(2, val2);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-*/
     }
 
     public List<Post> listAllPost(String query, String[] col) throws SQLiteException {
 
-        List<Post> listPost = new ArrayList<Post>();
+        List<Post> listPost = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         final Cursor cursor = db.rawQuery(query, col);
         String city;
@@ -151,6 +104,7 @@ public class PostDAO extends SQLiteOpenHelper {
         String title;
         String description;
         String user;
+        String date;
 
         //Post post;
         int cc = cursor.getColumnCount();
@@ -164,113 +118,17 @@ public class PostDAO extends SQLiteOpenHelper {
                 title = cursor.getString(4);
                 description = cursor.getString(5);
                 user = cursor.getString(6);
+                date = cursor.getString(7);
 
-                Post post = new Post(city, state, category, title, description, user);
+                Post post = new Post(city, state, category, title, description, user, date);
                 listPost.add(post);
 
             } while (cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
         }
-        return listPost;/*
 
-        connect_func();
-        statement =  (Statement) connect.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
+        cursor.close();
 
-        while (resultSet.next()) {
-            int id = cursor.getInt(0);
-            String city = cursor.getString(1);
-            String state = cursor.getString(2);
-            String category = cursor.getString(3);
-            String title = cursor.getString(4);
-            String description = cursor.getString(5);
-            String user = cursor.getString(6);
-
-            Post post = new Post(city, state, category, title, description);
-            listPost.add(post);
-        }
-        resultSet.close();
-        statement.close();
-        disconnect();*/
+        return listPost;
     }
-    
-
-   /* protected void disconnect() throws SQLException {
-        if (connect != null && !connect.isClosed()) {
-            connect.close();
-        }
-    }
-
-
-      @see HttpServlet#HttpServlet()
-
-   protected void connect_func() throws SQLException {
-        if (connect == null || connect.isClosed()) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver"); //<------------------------------------- need to change to our database driver
-            } catch (ClassNotFoundException e) {
-                throw new SQLException(e);
-            }
-            connect = (Connection) DriverManager
-                    .getConnection("jdbc:mysql://127.0.0.1:3306/projectdb?"  //<------------------------------------- need to change to our database connector
-                            + "user=john&password=pass1234");
-            System.out.println(connect);
-        }
-    }*/
-
-
-
-    /*
-     @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        doGet(request, response);
-    }*/
-
-
-
-    //this is moved to onCreate
-    /*public void initialize() throws SQLException {
-
-        connect_func();
-
-        String sql = "drop database projectdb";
-
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-
-        sql = "create database projectdb";
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-
-        String sql = "use projectdb"; //<----------------------use database name here
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-
-        sql = "create table post" +
-                "(id integer not null auto_increment,"+
-                "city varchar(20) NOT NULL,"+
-                "state varchar(20) NOT NULL,"+
-                "category varchar(20) NOT NULL,"+
-                "title varchar(20) NOT NULL,"+
-                "description varchar(150),"+
-                "r_user varchar(20),"+
-
-                "r_user reference User (username),"+
-                "primary key (id))";
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-
-
-        Post newPost = new Post("Detroit", "Michigan", "Food", "Urban Ramen" ,"Best ramen place in all of Detroit!");
-        insert(newPost);
-
-        //boolean rowUpdated = preparedStatement.executeUpdate() > 0;
-
-    }*/
 
 }
