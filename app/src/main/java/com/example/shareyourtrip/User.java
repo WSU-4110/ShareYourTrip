@@ -1,11 +1,6 @@
 package com.example.shareyourtrip;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
-
-    //Member Variables
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -13,9 +8,6 @@ public class User {
     private String password;
     private String confirmPassword;
     private boolean isBanned;
-
-    //A list of the users favorite posts.
-    private List<Post> favList = new ArrayList<Post>();
 
     public User(String firstName, String lastName, String emailAddress, String usename, String password, String confirmPassword, boolean isBanned) {
         this.firstName = firstName;
@@ -71,7 +63,9 @@ public class User {
         return confirmPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
     public boolean isBanned() {
         return isBanned;
@@ -80,8 +74,4 @@ public class User {
     public void setBanned(boolean banned) {
         isBanned = banned;
     }
-
-    public List<Post> getFavList() { return favList; }
-
-    public void setFavList(List<Post> favList) { this.favList = favList; }
 }

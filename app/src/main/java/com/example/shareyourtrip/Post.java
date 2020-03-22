@@ -1,6 +1,5 @@
 package com.example.shareyourtrip;
 
-
 public class Post {
     private String city;
     private String state;
