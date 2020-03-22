@@ -70,6 +70,18 @@
             app:layout_constraintRight_toRightOf="@+id/right_guideline"
             app:layout_constraintTop_toBottomOf="@id/city"/>
 
+        <Spinner
+            android:id="@+id/Category_Spinner"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:autofillHints=""
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintEnd_toEndOf="@id/right_guideline"
+            app:layout_constraintTop_toBottomOf="@id/state">
+        </Spinner>
+
         <EditText
             android:id="@id/title"
             android:layout_width="0dp"
@@ -81,7 +93,7 @@
             android:singleLine="true"
             app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
             app:layout_constraintRight_toRightOf="@+id/right_guideline"
-            app:layout_constraintTop_toBottomOf="@id/state"/>
+            app:layout_constraintTop_toBottomOf="@id/Category_Spinner"/>
 
          <EditText
              android:id="@+id/description"
