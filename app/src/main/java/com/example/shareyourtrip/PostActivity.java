@@ -102,7 +102,7 @@ public class PostActivity extends AppCompatActivity {
 
                         flag = postDAO.insert(city.getText().toString(),
                                 state.getText().toString(),
-                                spinner_category.toString(),
+                                spinner_category.getSelectedItem().toString(),
                                 title.getText().toString(),
                                 description.getText().toString(),
                                 FirebaseAuth.getInstance().getCurrentUser().getEmail(),
