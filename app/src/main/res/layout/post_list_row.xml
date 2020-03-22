@@ -64,5 +64,26 @@
         android:background="@drawable/post_background"
         />
 
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/post_background"
+        />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/post_background"
+        />
+
+
 
 </RelativeLayout>
