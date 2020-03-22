@@ -85,6 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:padding="10dp"
+                android:background="@drawable/spinner_background"
                 android:layout_marginTop="15dp"
                 android:autofillHints=""
                 app:layout_constraintStart_toStartOf="@id/left_guideline"
@@ -128,6 +129,7 @@
                 tools:layout_editor_absoluteX="15dp"
                 tools:layout_editor_absoluteY="600dp"
                 android:layout_marginTop="15dp"
+                android:backgroundTint="@color/ButtonColor"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 app:layout_constraintLeft_toLeftOf="@+id/left_guideline"/>
 
@@ -140,6 +142,7 @@
                 tools:layout_editor_absoluteX="340dp"
                 tools:layout_editor_absoluteY="600dp"
                 android:layout_marginTop="15dp"
+                android:backgroundTint="@color/ButtonColor"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 app:layout_constraintRight_toLeftOf="@+id/right_guideline"/>
 
