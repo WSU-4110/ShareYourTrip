@@ -20,10 +20,10 @@ public class PostActivity extends AppCompatActivity {
 
     // Variables
     FloatingActionButton button_add_post;
-    TextInputLayout city = null;
-    TextInputLayout state  = null;
+    EditText city = null;
+    EditText state  = null;
     TextInputLayout category  = null;
-    TextInputLayout title  = null;
+    EditText title  = null;
     EditText description  = null;
     FloatingActionButton button_cancel;
     //String user;
@@ -53,19 +53,19 @@ public class PostActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 //getting variables from user input
-                city = (TextInputLayout)findViewById(R.id.city);
-                state  = (TextInputLayout)findViewById(R.id.state);
+                city = (EditText) findViewById(R.id.city);
+                state  = (EditText) findViewById(R.id.state);
                 category  = (TextInputLayout)findViewById(R.id.category);
-                title  = (TextInputLayout)findViewById(R.id.title);
+                title  = (EditText) findViewById(R.id.title);
                 description  = (EditText)findViewById(R.id.description);
                 //user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
 
                 try {
-                    flag = postDAO.insert(city.getEditText().getText().toString(),
-                            state.getEditText().getText().toString(),
+                    flag = postDAO.insert(city.getText().toString(),
+                            state.getText().toString(),
                             category.getEditText().getText().toString(),
-                            title.getEditText().getText().toString(),
+                            title.getText().toString(),
                             description.getText().toString(),
                             FirebaseAuth.getInstance().getCurrentUser().getEmail());
                 } catch (SQLException e) {
