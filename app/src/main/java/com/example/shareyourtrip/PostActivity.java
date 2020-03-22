@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -25,16 +28,24 @@ public class PostActivity extends AppCompatActivity {
 
     // Variables
     FloatingActionButton button_add_post;
-    TextInputLayout city = null;
-    TextInputLayout state  = null;
-    TextInputLayout category  = null;
-    TextInputLayout title  = null;
+    EditText city = null;
+    EditText state  = null;
+    EditText title  = null;
     EditText description  = null;
     FloatingActionButton button_cancel;
     //String user;
     PostDAO postDAO;
     boolean flag = false;
     //private FirebaseAuth auth;
+
+    // Array of search categories
+    String CategoryArray[] = {"All categories", "Entertainment", "Museum", "Park", "Restaurant"};
+
+    // Spinner variable
+    Spinner spinner_category;
+
+    // Array adapter for spiiner
+    ArrayAdapter<String> arrayadapter;
 
     public static void alertDisplay(Context context, String msg, boolean success){
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -63,55 +74,71 @@ public class PostActivity extends AppCompatActivity {
         button_add_post = findViewById(R.id.button_add_post);
         postDAO = new PostDAO(this);
 
-        // check button //must update
-        button_add_post.setOnClickListener(new View.OnClickListener() {
+        spinner_category=(Spinner)findViewById(R.id.Category_Spinner);
+        arrayadapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CategoryArray);
+        spinner_category.setAdapter(arrayadapter);
 
+        spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            public void onClick(View v) {
-                //getting variables from user input
-                city = findViewById(R.id.city);
-                state  = findViewById(R.id.state);
-                category  = findViewById(R.id.category);
-                title  = findViewById(R.id.title);
-                description  = findViewById(R.id.description);
-                SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String str_date = date.format(new Date());
-                System.out.println(str_date);
+                // check button //must update
+                button_add_post.setOnClickListener(new View.OnClickListener() {
 
-                //System.out.print(date.format(new Date().toString()));
+                    @Override
 
-                flag = postDAO.insert(city.getEditText().getText().toString(),
-                        state.getEditText().getText().toString(),
-                        category.getEditText().getText().toString(),
-                        title.getEditText().getText().toString(),
-                        description.getText().toString(),
-                        FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                        str_date);// storing date in format YYYY-MM-DD HH:MM:SSl
+                    public void onClick(View v) {
+                        //getting variables from user input
+                        city = findViewById(R.id.city);
+                        state  = findViewById(R.id.state);
+                        spinner_category  = findViewById(R.id.Category_Spinner);
+                        title  = findViewById(R.id.title);
+                        description  = findViewById(R.id.description);
+                        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String str_date = date.format(new Date());
+                        System.out.println(str_date);
 
-                if(flag){
-                    Intent post_page_intent = new Intent(PostActivity.this, ProfileActivity.class);
-                    startActivity(post_page_intent);
-                }else{
-                    //need to print error message to screen
-                    //Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
-                    //startActivity(post_page_intent);
-                    alertDisplay(PostActivity.this, "Error! Missing information in one or more fields.",false);
-                }
+                        //System.out.print(date.format(new Date().toString()));
 
+                        flag = postDAO.insert(city.getText().toString(),
+                                state.getText().toString(),
+                                spinner_category.toString(),
+                                title.getText().toString(),
+                                description.getText().toString(),
+                                FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                str_date);// storing date in format YYYY-MM-DD HH:MM:SSl
+
+                        if(flag){
+                            Intent post_page_intent = new Intent(PostActivity.this, ProfileActivity.class);
+                            startActivity(post_page_intent);
+                        }else{
+                            //need to print error message to screen
+                            //Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
+                            //startActivity(post_page_intent);
+                            alertDisplay(PostActivity.this, "Error! Missing information in one or more fields.",false);
+                        }
+
+                    }
+
+                });
+
+
+                // cancel button
+                button_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent register_Intent = new Intent(PostActivity.this, HomePageActivity.class);
+                        startActivity(register_Intent);
+                    }
+                });
             }
 
-        });
-
-
-        // cancel button
-        button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent register_Intent = new Intent(PostActivity.this, HomePageActivity.class);
-                startActivity(register_Intent);
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
