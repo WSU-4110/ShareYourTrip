@@ -80,6 +80,7 @@ public class PostActivity extends AppCompatActivity {
                 System.out.println(str_date);
 
                 //System.out.print(date.format(new Date().toString()));
+
                 flag = postDAO.insert(city.getEditText().getText().toString(),
                         state.getEditText().getText().toString(),
                         category.getEditText().getText().toString(),
