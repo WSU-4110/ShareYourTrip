@@ -137,12 +137,19 @@ public class SearchActivity extends AppCompatActivity {
                         }
 
                         else {
+                            String category = spinner_category.getSelectedItem().toString();
+
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append("select * from post where ");
                             stringBuilder.append("city='");
                             stringBuilder.append(txt_City.getText().toString());
                             stringBuilder.append("' and state='");
                             stringBuilder.append(txt_State.getText().toString());
+                            if(!category.equals("All categories"))
+                            {
+                                stringBuilder.append("' and category='");
+                                stringBuilder.append(category);
+                            }
                             stringBuilder.append("';");
 
                             String[] cols = {"city", "state"};
