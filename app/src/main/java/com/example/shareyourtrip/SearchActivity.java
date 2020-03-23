@@ -3,6 +3,9 @@ package com.example.shareyourtrip;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -39,6 +43,10 @@ public class SearchActivity extends AppCompatActivity {
     // Edit text variables
     EditText txt_City;
     EditText txt_State;
+
+    private List<Post> postsList = new ArrayList<Post>();
+    private RecyclerView recyclerView;
+    private PostAdapter postAdapter;
 
     // Function to give alert
     public static void alertDisplay(Context context, String msg, boolean success){
@@ -63,6 +71,14 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         final PostDAO postDAO = new PostDAO(this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.search_rv);
+        postAdapter = new PostAdapter(postsList);
+
+        RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(postLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(postAdapter);
 
         // Bottom navigation code
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -121,12 +137,19 @@ public class SearchActivity extends AppCompatActivity {
                         }
 
                         else {
+                            String category = spinner_category.getSelectedItem().toString();
+
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append("select * from post where ");
                             stringBuilder.append("city='");
                             stringBuilder.append(txt_City.getText().toString());
                             stringBuilder.append("' and state='");
                             stringBuilder.append(txt_State.getText().toString());
+                            if(!category.equals("All categories"))
+                            {
+                                stringBuilder.append("' and category='");
+                                stringBuilder.append(category);
+                            }
                             stringBuilder.append("';");
 
                             String[] cols = {"city", "state"};
@@ -137,6 +160,8 @@ public class SearchActivity extends AppCompatActivity {
                                     alertDisplay(SearchActivity.this, "There is no post for the given criteria!", false);
                                     //Toast.makeText(SearchActivity.this,"There are no posts with the given criteria!",Toast.LENGTH_LONG).show();;
                                 }
+                                postsList.addAll(listPost);
+                                postAdapter.notifyDataSetChanged();
                             }
                             catch (SQLiteException e){
                                 Toast.makeText(SearchActivity.this,"There is a database problem!"+e.getMessage(),Toast.LENGTH_LONG).show();;

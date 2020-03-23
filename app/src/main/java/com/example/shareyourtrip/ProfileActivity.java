@@ -2,6 +2,9 @@ package com.example.shareyourtrip;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -21,12 +25,24 @@ public class ProfileActivity extends AppCompatActivity {
     // Variables
     Button m_settingsbutton;
 
+    private List<Post> postsList = new ArrayList<Post>();
+    private RecyclerView recyclerView;
+    private PostAdapter postAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         PostDAO postDAO = new PostDAO(this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.rv_posts);
+        postAdapter = new PostAdapter(postsList);
+
+        RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(postLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(postAdapter);
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("select * from post where ");
@@ -36,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         try {
             List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
+            postsList.addAll(listPost);
+            postAdapter.notifyDataSetChanged();
         }
         catch (SQLiteException e){
             Toast.makeText(ProfileActivity.this,"There is a database problem!"+e.getMessage(),Toast.LENGTH_LONG).show();;
