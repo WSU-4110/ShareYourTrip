@@ -137,6 +137,9 @@ public class SearchActivity extends AppCompatActivity {
                         }
 
                         else {
+
+                            postsList.clear();
+
                             String category = spinner_category.getSelectedItem().toString();
 
                             StringBuilder stringBuilder = new StringBuilder();
