@@ -18,95 +18,99 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="25dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="25dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerright_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="195dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerleft_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="195dp" />
+
+    <EditText
+        android:id="@+id/City"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_edit_text"
+        android:hint="City"
+        android:padding="10dp"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@id/centerleft_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/State"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/login_edit_text"
+        android:hint="State"
+        android:padding="10dp"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/centerright_guideline"
+        app:layout_constraintTop_toTopOf="@id/City" />
+
+
+    <Button
+        android:id="@+id/Search_Button"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/ButtonColor"
+        android:drawableRight="@drawable/ic_search"
+        android:padding="10dp"
+        android:text="Search"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/centerright_guideline"
+        app:layout_constraintTop_toBottomOf="@id/City" />
+
+    <Spinner
+        android:id="@+id/Category_Spinner"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:autofillHints=""
+        android:background="@drawable/spinner_background"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="@id/centerleft_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/City"></Spinner>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
         android:layout_marginBottom="70dp"
         android:fillViewport="true">
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/left_guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="25dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/right_guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="25dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/centerright_guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="195dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/centerleft_guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="195dp" />
-
-            <EditText
-                android:id="@+id/City"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/login_edit_text"
-                android:hint="City"
-                android:padding="10dp"
-                android:singleLine="true"
-                app:layout_constraintEnd_toStartOf="@id/centerleft_guideline"
-                app:layout_constraintStart_toStartOf="@id/left_guideline"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/State"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/login_edit_text"
-                android:hint="State"
-                android:padding="10dp"
-                android:singleLine="true"
-                app:layout_constraintEnd_toStartOf="@id/right_guideline"
-                app:layout_constraintStart_toStartOf="@id/centerright_guideline"
-                app:layout_constraintTop_toTopOf="@id/City" />
-
-
-            <Button
-                android:id="@+id/Search_Button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@color/ButtonColor"
-                android:drawableRight="@drawable/ic_search"
-                android:padding="10dp"
-                android:text="Search"
-                android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="@id/right_guideline"
-                app:layout_constraintStart_toStartOf="@id/centerright_guideline"
-                app:layout_constraintTop_toBottomOf="@id/City" />
-
-            <Spinner
-                android:id="@+id/Category_Spinner"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
-                android:autofillHints=""
-                android:background="@drawable/spinner_background"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="@id/centerleft_guideline"
-                app:layout_constraintStart_toStartOf="@id/left_guideline"
-                app:layout_constraintTop_toBottomOf="@id/City"></Spinner>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_rv"
