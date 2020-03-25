@@ -24,7 +24,8 @@ import java.sql.SQLException;
 import java.util.*;
 import java.text.*;
 
-public class PostActivity extends AppCompatActivity {
+
+public class PostActivity extends AppCompatActivity{
 
     // Variables
     FloatingActionButton button_add_post;

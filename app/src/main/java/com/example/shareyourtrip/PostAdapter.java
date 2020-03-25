@@ -28,6 +28,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //This will be a list of user posts to display to the users
         private List<Post> postList;
 
+
+
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView location, category, title, description, user, date;
@@ -44,7 +46,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 date = (TextView) view.findViewById(R.id.date);
                 favButton = (ImageButton) view.findViewById(R.id.fav_button);
             }
-
         }
 
         //Copy constructor
