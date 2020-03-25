@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity implements PageActivity {
 
     private List<Post> favList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -75,7 +75,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     //Used for Testing
-    private void preparePostData(){
+    public void preparePostData(){
 
         Post post = new Post("Plymouth", "MI", "Park", "McClumpha Park is Great!", "This is a great mid sized park in the area - especially when there aren't too many others around. There are a few baseball fields in the back and a hill that's used for sledding in the winter. There is also a small pond with a floating dock that you can fish off of. I saw someone catch and release a rather large snapping turtle from there! There are also good sheltered areas for group picnics and little kids to play (a large play structure and maybe small water park).", "Jeff B.");
         favList.add(post);

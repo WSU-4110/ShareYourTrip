@@ -20,7 +20,7 @@ import java.util.List;
     uses UserPostAdapter as a blueprint for each row.
  */
 
-public class FavoriteActivity extends AppCompatActivity {
+public class FavoriteActivity extends AppCompatActivity implements PageActivity{
 
     //todo: Figure out how to reference users favList instead of using test list
     private List<Post> favList = new ArrayList<>();
@@ -82,7 +82,7 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     //Used for Testing
-    private void preparePostData(){
+     public void preparePostData(){
 
         Post post = new Post("Chicago", "IL", "Museum", "Family Fun at Shedd's Aquarium", "The Shedd is leading the game in terms of accessibility! I was treated to a very lovely dolphin/wild life show that was sensory friendly. Wish more museums were on the same level. \n" +
                 "\n" +
