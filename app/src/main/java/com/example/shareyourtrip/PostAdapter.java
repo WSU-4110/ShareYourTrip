@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-//This code showcases the design pattern "Adapters"
+//This code showcases the software design pattern "Adapters"
 
 /*
     This class is an adapter for the UserPost object. UserPostAdapter is the UI element
