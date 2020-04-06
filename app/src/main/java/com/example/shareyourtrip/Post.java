@@ -9,6 +9,7 @@ public class Post {
     private String description;
     private String user;
     private String date;
+    private int likes;
 
     public Post() {
         this.city = null;
@@ -54,6 +55,12 @@ public class Post {
         return user;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public int getLikes() {return likes; }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -78,11 +85,10 @@ public class Post {
         this.description = user;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public void setDate(String date) {
         this.date = date;
     }
+
+    public void setLikes(int likes) { this.likes = likes; }
+
 }
