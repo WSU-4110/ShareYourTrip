@@ -36,8 +36,6 @@ public class FavoriteActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         postAdapter = new PostAdapter(favList);
 
-
-
         //Setting up our recycler view
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(postLayoutManager);

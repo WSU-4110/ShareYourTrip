@@ -31,7 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView location, category, title, description, user, date;
-            public ImageButton favButton;
+            public ToggleButton favButton;
 
             //Constructor of the ViewHolder, initializes TextViews
             public MyViewHolder(View view) {
@@ -42,7 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 description = (TextView) view.findViewById(R.id.description);
                 user = (TextView) view.findViewById(R.id.user);
                 date = (TextView) view.findViewById(R.id.date);
-                favButton = (ImageButton) view.findViewById(R.id.fav_button);
+                favButton = (ToggleButton) view.findViewById(R.id.fav_button);
             }
 
         }
