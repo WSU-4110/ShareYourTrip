@@ -31,10 +31,8 @@ public class PostActivity extends AppCompatActivity {
     TextInputLayout title  = null;
     EditText description  = null;
     FloatingActionButton button_cancel;
-    //String user;
     PostDAO postDAO;
     boolean flag = false;
-    //private FirebaseAuth auth;
 
     public static void alertDisplay(Context context, String msg, boolean success){
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -49,12 +47,11 @@ public class PostActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-/*        city = (TextInputLayout)findViewById(R.id.city);
+/*       city = (TextInputLayout)findViewById(R.id.city);
         state  = (TextInputLayout)findViewById(R.id.state);
         category  = (TextInputLayout)findViewById(R.id.category);
         title  = (TextInputLayout)findViewById(R.id.title);
