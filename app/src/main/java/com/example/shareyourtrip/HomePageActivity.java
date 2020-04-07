@@ -7,8 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ToggleButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -17,15 +22,15 @@ import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    private List<Post> favList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
+    List<Post> favList = new ArrayList<>();
+    RecyclerView recyclerView;
+    PostAdapter postAdapter= new PostAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
 
         //Assigning recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -36,8 +41,8 @@ public class HomePageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(postLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(postAdapter);
-
         preparePostData();
+
 
         //Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
