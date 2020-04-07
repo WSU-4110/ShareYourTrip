@@ -1,4 +1,5 @@
 package com.example.shareyourtrip;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         //This will be a list of user posts to display to the users
         private List<Post> postList;
+        private boolean isProfilePage;
+
+        //Checks the context we are in, if it's profile page, fav will be replaced with delete
+        PostAdapter(Context context){
+            if (context instanceof ProfileActivity){ isProfilePage = true; }
+        }
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -78,23 +85,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.description.setText(post.getDescription());
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
-            //todo holder.likeCount.setText();
-            //todo holder.dislikeCount.setText();
+            //todo holder.likeCount.setText( <post like count> );
+            //todo holder.dislikeCount.setText( <post dislike count> );
 
-            //Favorite Button Logic
-            holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //If favorite is toggled on...
-                    if (isChecked) {
-                        holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                        //todo: Put favorite database stuff here
+
+                holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        //If favorite is toggled on...
+                        if (isChecked) {
+                            holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
+                            //todo: Put favorite database stuff here
+                        }
+                        //If favorite is toggled off
+                        else {
+                            holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
+                        }
                     }
-                    //If favorite is toggled off
-                    else {
-                        holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
-                    }
-                }
-            });
+                });
+
 
             //like/dislike logic
             holder.likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
