@@ -31,7 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView location, category, title, description, user, date;
+            public TextView location, category, title, description, user, date, likeCount;
             public ToggleButton favButton, likeButton, dislikeButton;
 
             //Constructor of the ViewHolder, initializes TextViews
@@ -45,6 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 date = (TextView) view.findViewById(R.id.date);
                 favButton = (ToggleButton) view.findViewById(R.id.fav_button);
                 likeButton = (ToggleButton) view.findViewById(R.id.like_button);
+                likeCount = (TextView) view.findViewById(R.id.like_count);
                 dislikeButton = (ToggleButton) view.findViewById(R.id.dislike_button);
             }
         }
@@ -60,9 +61,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.post_list_row, parent, false);
-
-
-
             return new MyViewHolder(itemView);
         }
 
@@ -70,6 +68,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //and put it in the TextViews
         @Override
         public void onBindViewHolder(final MyViewHolder holder, int position) {
+
+            //Setting views with values from postList
             Post post = postList.get(position);
             holder.location.setText(post.getCity() + ", " + post.getState());
             holder.category.setText(post.getCategory());
@@ -77,14 +77,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.description.setText(post.getDescription());
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
-            //Favorite Button Logic
+            //todo: Add likecount logic here.
 
+            //Favorite Button Logic
             holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    if (isChecked) {//if toggle enabled
+                    //If favorite is toggled on...
+                    if (isChecked) {
                         holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                    } else {//if toggle disabled
+                        //todo: Put favorite database stuff here
+                    }
+                    //If favorite is toggled off
+                    else {
                         holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
                     }
                 }
@@ -94,12 +98,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    //If like button toggled on
                     if (isChecked){
                         holder.likeButton.setBackgroundResource(R.drawable.ic_like_enabled);
+                        //..and dislike is toggled on
                         if (holder.dislikeButton.isChecked()) {
-                            holder.dislikeButton.setChecked(false);
+                            holder.dislikeButton.setChecked(false);//toggle off dislike.
                         }
+                        //todo: Put like database stuff here
                     }
+
+                    //If like button is toggled off
                     else{
                         holder.likeButton.setBackgroundResource(R.drawable.ic_like);
                     }
@@ -109,12 +118,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.dislikeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    //If dislike toggled on
                     if (isChecked){
                         holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike_enabled);
+                        //...and if like is toggled on
                         if (holder.likeButton.isChecked()) {
-                            holder.likeButton.setChecked(false);
+                            holder.likeButton.setChecked(false);//toggle off like
                         }
+                        //todo: Put dislike database stuff here
                     }
+                    //If dislike is toggled off..
                     else{
                         holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike);
                     }
