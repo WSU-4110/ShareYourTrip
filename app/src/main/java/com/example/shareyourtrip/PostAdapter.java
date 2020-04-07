@@ -32,7 +32,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView location, category, title, description, user, date;
-            public ToggleButton favButton;
+            public ToggleButton favButton, likeButton, dislikeButton;
 
             //Constructor of the ViewHolder, initializes TextViews
             public MyViewHolder(View view) {
@@ -44,6 +44,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 user = (TextView) view.findViewById(R.id.user);
                 date = (TextView) view.findViewById(R.id.date);
                 favButton = (ToggleButton) view.findViewById(R.id.fav_button);
+                likeButton = (ToggleButton) view.findViewById(R.id.like_button);
+                dislikeButton = (ToggleButton) view.findViewById(R.id.dislike_button);
             }
         }
 
@@ -75,13 +77,39 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.description.setText(post.getDescription());
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
+            //Favorite Button Logic
             holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                    if (isChecked) {
+                    if (isChecked) {//if toggle enabled
                         holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                    } else {
+                    } else {//if toggle disabled
                         holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
+                    }
+                }
+            });
+
+            //like/dislike logic
+            holder.likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked){
+                        holder.likeButton.setBackgroundResource(R.drawable.ic_like_enabled);
+                    }
+                    else{
+                        holder.likeButton.setBackgroundResource(R.drawable.ic_like);
+                    }
+                }
+            });
+
+            holder.dislikeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked){
+                        holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike_enabled);
+                    }
+                    else{
+                        holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike);
                     }
                 }
             });
