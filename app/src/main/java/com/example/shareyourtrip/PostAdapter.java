@@ -78,6 +78,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
             //Favorite Button Logic
+
             holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -95,6 +96,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
                         holder.likeButton.setBackgroundResource(R.drawable.ic_like_enabled);
+                        if (holder.dislikeButton.isChecked()) {
+                            holder.dislikeButton.setChecked(false);
+                        }
                     }
                     else{
                         holder.likeButton.setBackgroundResource(R.drawable.ic_like);
@@ -107,6 +111,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
                         holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike_enabled);
+                        if (holder.likeButton.isChecked()) {
+                            holder.likeButton.setChecked(false);
+                        }
                     }
                     else{
                         holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike);
