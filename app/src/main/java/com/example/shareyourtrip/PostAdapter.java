@@ -3,6 +3,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -44,7 +45,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 date = (TextView) view.findViewById(R.id.date);
                 favButton = (ToggleButton) view.findViewById(R.id.fav_button);
             }
-
         }
 
         //Copy constructor
@@ -67,7 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //Once the ViewHolder is set in place, we retrieve the text from the UserPost
         //and put it in the TextViews
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(final MyViewHolder holder, int position) {
             Post post = postList.get(position);
             holder.location.setText(post.getCity() + ", " + post.getState());
             holder.category.setText(post.getCategory());
@@ -75,6 +75,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.description.setText(post.getDescription());
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
+            holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    if (isChecked) {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
+                    } else {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
+                    }
+                }
+            });
         }
 
         //Returns size of list of posts
