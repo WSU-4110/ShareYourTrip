@@ -33,7 +33,7 @@
         android:layout_alignParentRight="true"
         android:textOff=""
         android:textOn=""
-        android:background="@drawable/ic_favorite"
+        android:background="@drawable/ic_unfavorited"
         />
 
     <ToggleButton
@@ -58,10 +58,18 @@
         android:id="@+id/dislike_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_toLeftOf="@id/fav_button"
+        android:layout_toLeftOf="@id/dislike_count"
         android:textOff=""
         android:textOn=""
         android:background="@drawable/ic_dislike"
+        />
+
+    <TextView
+        android:id="@+id/dislike_count"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_toLeftOf="@id/fav_button"
+        android:text="300"
         />
 
     <TextView

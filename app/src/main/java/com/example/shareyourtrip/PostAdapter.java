@@ -31,7 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView location, category, title, description, user, date, likeCount;
+            public TextView location, category, title, description, user, date, likeCount, dislikecount;
             public ToggleButton favButton, likeButton, dislikeButton;
 
             //Constructor of the ViewHolder, initializes TextViews
@@ -47,6 +47,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 likeButton = (ToggleButton) view.findViewById(R.id.like_button);
                 likeCount = (TextView) view.findViewById(R.id.like_count);
                 dislikeButton = (ToggleButton) view.findViewById(R.id.dislike_button);
+                dislikecount = (TextView) view.findViewById(R.id.dislike_count);
             }
         }
 
@@ -77,7 +78,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.description.setText(post.getDescription());
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
-            //todo: Add likecount logic here.
+            //todo holder.likeCount.setText();
+            //todo holder.dislikeCount.setText();
 
             //Favorite Button Logic
             holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
