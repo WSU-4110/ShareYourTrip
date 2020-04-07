@@ -3,16 +3,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.widget.Toolbar;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //This code showcases the design pattern "Adapters"
@@ -85,9 +81,25 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.description.setText(post.getDescription());
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
-            //todo holder.likeCount.setText( <post like count> );
-            //todo holder.dislikeCount.setText( <post dislike count> );
+            //todo holder.likeCount.setText( post.getLikes);
+            //todo holder.dislikeCount.setText( post.getDislikes );
 
+            //Delete Button logic (only on profile activity)
+            if (isProfilePage){
+                holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_delete);
+                        //If delete is pressed
+                        if (isChecked) {
+                            //todo: Put delete database stuff here
+                        }
+                    }
+                });
+            }
+
+            //Favorite Button Logic
+            else {
 
                 holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -102,7 +114,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         }
                     }
                 });
-
+            }
 
             //like/dislike logic
             holder.likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
