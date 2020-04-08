@@ -26,25 +26,16 @@ public class PostActivity extends AppCompatActivity {
     TextInputLayout title  = null;
     EditText description  = null;
     FloatingActionButton button_cancel;
-    //String user;
     PostDAO postDAO;
     boolean flag = false;
-    //private FirebaseAuth auth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-/*        city = (TextInputLayout)findViewById(R.id.city);
-        state  = (TextInputLayout)findViewById(R.id.state);
-        category  = (TextInputLayout)findViewById(R.id.category);
-        title  = (TextInputLayout)findViewById(R.id.title);
-        description  = (EditText)findViewById(R.id.description);*/
         button_cancel = (FloatingActionButton)findViewById(R.id.button_cancel);
         button_add_post = (FloatingActionButton)findViewById(R.id.button_add_post);
         postDAO = new PostDAO(this);
-    //    auth = FirebaseAuth.getInstance();
 
         // check button //must update
         button_add_post.setOnClickListener(new View.OnClickListener() {
@@ -58,19 +49,15 @@ public class PostActivity extends AppCompatActivity {
                 category  = (TextInputLayout)findViewById(R.id.category);
                 title  = (TextInputLayout)findViewById(R.id.title);
                 description  = (EditText)findViewById(R.id.description);
-                //user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
 
-                try {
-                    flag = postDAO.insert(city.getEditText().getText().toString(),
-                            state.getEditText().getText().toString(),
-                            category.getEditText().getText().toString(),
-                            title.getEditText().getText().toString(),
-                            description.getText().toString(),
-                            FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                flag = postDAO.insert(city.getEditText().getText().toString(),
+                        state.getEditText().getText().toString(),
+                        category.getEditText().getText().toString(),
+                        title.getEditText().getText().toString(),
+                        description.getText().toString(),
+                        FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                        "0", "0");
 
                 if(flag){
                     Intent post_page_intent = new Intent(PostActivity.this, ProfileActivity.class);
@@ -80,7 +67,6 @@ public class PostActivity extends AppCompatActivity {
                     Intent post_page_intent = new Intent(PostActivity.this, PostActivity.class);
                     startActivity(post_page_intent);
                 }
-
             }
 
         });
@@ -124,8 +110,6 @@ public class PostActivity extends AppCompatActivity {
                         startActivity(profile_Intent);
                         break;
                 }
-
-
                 return false;
             }
         });

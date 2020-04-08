@@ -84,7 +84,7 @@ public class FavoriteActivity extends AppCompatActivity implements PageActivity{
     //Used for Testing
      public void preparePostData(){
 
-        Post post = new Post("Chicago", "IL", "Museum", "Family Fun at Shedd's Aquarium", "The Shedd is leading the game in terms of accessibility! I was treated to a very lovely dolphin/wild life show that was sensory friendly. Wish more museums were on the same level. \n" +
+        /*Post post = new Post("Chicago", "IL", "Museum", "Family Fun at Shedd's Aquarium", "The Shedd is leading the game in terms of accessibility! I was treated to a very lovely dolphin/wild life show that was sensory friendly. Wish more museums were on the same level. \n" +
                 "\n" +
                 "They also house a great variety of animals in this building with tons of info available if you're curious. The layout is very convenient and the staff is very helpful. Highly recommend if you're looking to explore one of Chicago's many museums.", "Sally H.");
         favList.add(post);
@@ -96,7 +96,7 @@ public class FavoriteActivity extends AppCompatActivity implements PageActivity{
         favList.add(post);
 
         post = new Post("City", "State", "Category", "Title", "Desc", "Author");
-        favList.add(post);
+        favList.add(post);*/
 
         postAdapter.notifyDataSetChanged();
     }

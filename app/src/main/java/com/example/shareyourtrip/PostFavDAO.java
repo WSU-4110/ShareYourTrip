@@ -6,29 +6,27 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper{
-    private static final String DBTABLE = "post";
+public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHelper{
+    private static final String DBTABLE = "postFav";
     private String sql;
 
-    public PostDAO(Context context) {
+
+    public PostFavDAO(Context context) {
         super(context, DBNAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) throws SQLiteException  {
         sql = "create table if not exists " + DBTABLE +
-                " (id integer primary key autoincrement, "+
-                "city text NOT NULL, "+
-                "state text NOT NULL, "+
-                "category text NOT NULL, "+
-                "title text NOT NULL, "+
-                "description text not null, "+
+                " (id integer not null, "+
                 "user text not null, " +    //for storing user email
-                "up integer default 0," +             //for storing positive/up rating
-                "down integer default 0);";           //for storing negative/down rating
+                "primary key(id, user))";
         db.execSQL(sql);
 
         initialize();
@@ -40,46 +38,8 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper{
         onCreate(db);
     }
 
-
     public void initialize(){
-        Post post;
-        post = new Post("Detroit", "MI", "food", "Urban Ramen",
-                "Best ramen in metro detroit! Homemade noodles and house broth, " +
-                        "delicious and comforting for the cold michigan weather.",
-                "", "0","0");
-        insert(post);
 
-        post = new Post("Detroit", "MI", "beverage", "Tao & Mai",
-                "Tao & Mai is an adorable Boba shop in the heart of midtown right by Sy Thai. " +
-                        "Great variety of flavors, drink options and toppings. Highly recommend " +
-                        "Honeydew milk tea with extra pearls... you will not be dissapointed",
-                "", "0","0");
-        insert(post);
-
-
-        post = new Post("Detroit", "MI", "food", "Wasabi",
-                "This place is okay... not the best asian food in Detroit, but if you " +
-                        "can't choose between Korean food and Sushi, this is the right place for you.",
-                "", "0","0");
-        insert(post);
-
-        post = new Post("Detroit", "MI", "food", "Ima",
-                "Ima is an Asian fusion restaurant with various locations throughout Detroit. " +
-                        "It's hip, the food is tasty (aside from the curry, it is milder and not as spicy) " +
-                        "and the drinks menu offers a nice variety of Asian beers and Japanese sakes.",
-                "", "0","0");
-        insert(post);
-
-        post = new Post("Detroit", "MI", "food", "Izakaya Katsu",
-                "OMG this place... everything about it is amazing! Also found as " +
-                        "BASH Original Izakaya on google search results, this place is a truly " +
-                        "hidden gem in midtown Detroit. With traditional floor seating, heated mats " +
-                        "and private wooden booth seating, it feels like a little piece of Japan has " +
-                        "been presented to Michigan residents. Delicious small portions of food and " +
-                        "an extensive classic sake menu, this is the closest to Japanese 'bar food' " +
-                        "one can get. 10/10 definitely would recommend.",
-                "", "0","0");
-        insert(post);
     }
 
     public boolean insert(Post post) throws SQLiteException  {
@@ -92,21 +52,14 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper{
         cv.put("title", post.getTitle());
         cv.put("description", post.getDescription());
         cv.put("user", post.getUser());
-        cv.put("up", post.getUp());
-        cv.put("down", post.getDown());
 
-        //long result = db.insert(DBTABLE, null, cv);
+        //long result = db.insert("post", null, cv);
 
         //cannot simplify the following expression because this function returns a Boolean and not Long
         if(db.insert(DBTABLE, null, cv)!=-1){
             return true;
         }
         return false;
-//        return db.insert(DBTABLE, null, cv);
-    }
-
-    public boolean insert(String city, String state, String category, String title, String description, String user, String up, String down) {
-        return this.insert(new Post(city, state, category, title, description, user, up, down));
     }
 
     public boolean delete(String clause, String[] args){
@@ -118,19 +71,10 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper{
         return false;
     }
 
-    public boolean update(String[] col, String[] val, String clause, String[] args){
+    public boolean update(String id){
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
-        ContentValues content = new ContentValues();
 
-        //loop to add onto the content set for update mapping
-        if(col.length!= val.length)
-            return false;
-
-        for(int i=0; i <col.length; i++){
-            content.put(col[i], val[i]);
-        }
-
-        if(0 < db.update(DBTABLE, content, clause, args)){ //checking that the number of rows deleted is greater than 0
+        if(0 < db.delete(DBNAME, "id = ?", new String [] {id})){ //checking that the number of rows deleted is greater than 0
             return true;
         }
         return false;
@@ -142,7 +86,9 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper{
         final Cursor cursor = db.rawQuery(query, col);
 */
         Post post = new Post();
-        if (cursor != null) {
+        String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        if (cursor != null && user.equals(cursor.getString(6))) {
 
             post.setId(cursor.getString(0));
             post.setCity(cursor.getString(1));
@@ -192,6 +138,8 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper{
         }while (!cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
 
         cursor.close();
+
         return listPost;
     }
+
 }
