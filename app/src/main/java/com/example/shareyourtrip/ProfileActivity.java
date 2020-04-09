@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private List<Post> postsList = new ArrayList<Post>();
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
+    private PostAdapter postAdapter = new PostAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

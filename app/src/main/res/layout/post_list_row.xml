@@ -33,7 +33,7 @@
         android:layout_alignParentRight="true"
         android:textOff=""
         android:textOn=""
-        android:background="@drawable/ic_unfavorited"
+        android:background="@drawable/ic_favorite"
         />
 
     <ToggleButton
