@@ -45,7 +45,7 @@ public class HomePageActivity extends AppCompatActivity {
         //preparePostData();
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("select * from post;");
+        stringBuilder.append("select * from post order by id desc;");
 
         try {
             List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
