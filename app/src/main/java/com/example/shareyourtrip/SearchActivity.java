@@ -153,7 +153,8 @@ public class SearchActivity extends AppCompatActivity {
                                 stringBuilder.append("' and category='");
                                 stringBuilder.append(category);
                             }
-                            stringBuilder.append("';");
+                            stringBuilder.append("' ");
+                            stringBuilder.append("order by id desc;");
 
                             String[] cols = {"city", "state"};
 
