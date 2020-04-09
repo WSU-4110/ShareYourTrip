@@ -49,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
         stringBuilder.append("user='");
         stringBuilder.append(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         stringBuilder.append("'");
+        stringBuilder.append("order by id desc;");
 
         try {
             List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
