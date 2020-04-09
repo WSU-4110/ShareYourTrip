@@ -34,7 +34,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView location, category, title, description, user, date, likeCount, dislikeCount;
+            public TextView location, category, title, description, user, date, likeCount, dislikecount;
             public ToggleButton favButton, likeButton, dislikeButton;
 
             //Constructor of the ViewHolder, initializes TextViews
@@ -50,7 +50,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 likeButton = (ToggleButton) view.findViewById(R.id.like_button);
                 likeCount = (TextView) view.findViewById(R.id.like_count);
                 dislikeButton = (ToggleButton) view.findViewById(R.id.dislike_button);
-                dislikeCount = (TextView) view.findViewById(R.id.dislike_count);
+                dislikecount = (TextView) view.findViewById(R.id.dislike_count);
             }
         }
 
@@ -86,10 +86,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
             //Delete Button logic (only on profile activity)
             if (isProfilePage){
-                holder.favButton.setBackgroundResource(R.drawable.ic_delete);
                 holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_delete);
                         //If delete is pressed
                         if (isChecked) {
                             //todo: Put delete database stuff here
