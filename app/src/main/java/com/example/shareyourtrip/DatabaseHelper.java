@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DatabaseHelper{
     String DBNAME = "ShareYourTrip.db";
-    int DB_VERSION =9;
+    int DB_VERSION =15;
 
     void initialize(SQLiteDatabase db);
 

@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-public class PostDAO extends SQLiteOpenHelper {
-    private static final String DBNAME = "ShareYourTrip.db";
+public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
+    /*private static final String DBNAME = "ShareYourTrip.db";
     private static final String DBTABLE = "post";
     private static final int DB_VERSION =15;
+    private String sql;*/
+    private static final String DBTABLE = "post";
     private String sql;
 
 
