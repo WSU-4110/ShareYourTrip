@@ -1,0 +1,103 @@
+DONE:
+
+Favoriting a post:
+--> Favorite, home, search and profile all have hearts; (NOTE: need to change the heart on profile to an x)
+--> front end: heart that is either filled (favorited) or not (not favorited) [favorite in homepage, search | can only unfavorite from the favorite page]
+    - Note: on favorite's page, when the user unfavorites a post, the page refreshes and the unfavorited post is no longer on the page
+--> front end: the user the clicks on a heart button to "favorite" the post and 
+--> need to create a database table for favorite posts, two columns 
+
+___
+option 1: (easier)
+--> (wihtout keeping track of who liked or disliked the post)
+--> front end: implementation for thumbs up/down
+
+
+
+__________________________________________________________
+
+TO DO:
+
+Favorite's page: 
+--> back end: this is sent to the database;
+--> need to (user id and postId referencing post table) 
+--> OPTIONAL: need to make so that users can see what post they have favorites on the homepage and search page; they can see this right after they have liked it
+--> need to edit post table in database to include columns for thumbs up and thumbs down
+
+Reviewing/Rating a post
+___>
+option 2: (OPTIONAL - DON'T NEED RIGHT NOW)
+--> need to create a rating table to store liked or disliked and the user id and post id
+--> if a user likes a post they cannot like it again (like favorite) 
+--> a user cannot like or dislike a post at the same time
+<___
+--> need to write query to update the count of thumbs up/down in the post table when a user thumbs up/down
+
+
+Home:
+--> Need to connect to the database to retrieve posts
+--> sort posts from newest to oldest in descending order
+ 
+
+Search:
+--> sort posts from newest to oldest in descending 
+
+Profile page:
+--> when the user deletes a post, the page refreshes and the deleted post is no longer on the page
+
+Delete post:
+--> front end: 'x' in p of the heart
+--> prompt user with confirmation message to delete the post (Nathan)
+--> sort posts from newest to oldest in descending
+--> sql query to delete user post
+
+JOBS:
+-Nona:     
+    - favorite page: back end (favorite activity, try with sort)
+-London:
+    - delete back end 
+-Aaron:
+    - back end for ratings 
+-Nathan:
+    - favorite page: back end-button for heart in adapter 
+
+NEED TO REMOVE REQ:
+-submit a video 
+-submit an image 
+-ban a user
+-flag a post
+-remove flagged post
+-unavaliable post
+-forgot password
+-browse feed by category
+-remove two optional ones
+
+CHANGES
+-combine post experience into one form
+
+ADD
+-contact us page (email + gmail plug in that will send directly to us)
+-search page: city, state, category (upgraded from browse page)
+-add function to unfavorite
+_____________________________________________
+NEXT MEETING:
+- Friday: Aarin needs to let us know the time
+_____________________________________________
+Presentation demo - April 14
+_____________________________________________
+Assignment 6 - April 15
+(individual)
+
+J-Unit for testing, one or more classes for each person and test six functionalities (methods) 
+
+Nona - register, login 
+London - Database helper (post DAO and fav post DAO)  
+Nathan - post adapter (and search if not enough functions)
+Aaron - contact us and search
+
+______________________________________________
+Agenda for next week:
+Look at assignment 7 - April 22
+(group)
+
+create file that containg all unit test from A-6
