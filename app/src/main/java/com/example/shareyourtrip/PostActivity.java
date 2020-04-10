@@ -33,10 +33,8 @@ public class PostActivity extends AppCompatActivity {
     EditText title  = null;
     EditText description  = null;
     FloatingActionButton button_cancel;
-    //String user;
     PostDAO postDAO;
     boolean flag = false;
-    //private FirebaseAuth auth;
 
     // Array of search categories
     String CategoryArray[] = {"All categories", "Entertainment", "Museum", "Park", "Restaurant"};
@@ -60,12 +58,11 @@ public class PostActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-/*        city = (TextInputLayout)findViewById(R.id.city);
+/*       city = (TextInputLayout)findViewById(R.id.city);
         state  = (TextInputLayout)findViewById(R.id.state);
         category  = (TextInputLayout)findViewById(R.id.category);
         title  = (TextInputLayout)findViewById(R.id.title);

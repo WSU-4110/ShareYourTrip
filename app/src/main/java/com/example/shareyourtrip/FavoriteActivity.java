@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ToggleButton;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class FavoriteActivity extends AppCompatActivity {
     //todo: Figure out how to reference users favList instead of using test list
     private List<Post> favList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
+    private PostAdapter postAdapter = new PostAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,6 @@ public class FavoriteActivity extends AppCompatActivity {
         //Assigning recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         postAdapter = new PostAdapter(favList);
-
-
 
         //Setting up our recycler view
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
