@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
 public class PostDAO extends SQLiteOpenHelper {
     private static final String DBNAME = "ShareYourTrip.db";
     private static final String DBTABLE = "post";
-    private static final int DB_VERSION =12;
+    private static final int DB_VERSION =15;
     private String sql;
 
 
@@ -36,12 +37,66 @@ public class PostDAO extends SQLiteOpenHelper {
                 "up integer default 0, " +
                 "down integer default 0);"; //<-------------------------------------------- NEED TO ADD TABLE ATTRIBUTE FOR TIME
         db.execSQL(sql);
+
+        initialize(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) throws SQLiteException {
         db.execSQL("drop table if exists "+ DBTABLE);
         onCreate(db);
+    }
+
+    public void initialize(SQLiteDatabase db) {
+        String query = "insert into " +
+                DBTABLE +
+                " (city, state, category, title, description, user, date, up, down) values";
+
+        String user = "lc@a.com";
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String str_date = date.format(new Date());
+
+        String sql = query + "('Detroit', 'MI', 'food', 'Urban Ramen'," +
+                "'Best ramen in metro detroit! Homemade noodles and house broth, " +
+                "delicious and comforting for the cold michigan weather.', '" +
+                user + "', '" + str_date + "', '0', '0');";
+        db.execSQL(sql);
+
+        sql = query + "('Detroit', 'MI', 'food', 'Tao & Mai'," +
+                "'Tao & Mai is an adorable Boba shop in the heart of midtown right by Sy Thai. '" +
+                "'Great variety of flavors, drink options and toppings. Highly recommend '"+
+                "'Honeydew milk tea with extra pearls... you will not be dissapointed.', '" +
+                user + "', '" + str_date + "', '0', '0');";
+        db.execSQL(sql);
+
+        sql = query + "('Detroit', 'MI', 'food', 'Wasabi'," +
+                "'This place is okay... not the best asian food in " +
+                "Detroit, but if you cannot choose between Korean food " +
+                "and Sushi, this is the right place for you.', '" +
+                user + "', '" + str_date + "', '0', '0');";
+        db.execSQL(sql);
+
+        sql = query + "('Detroit', 'MI', 'food', 'Ima'," +
+                "'Ima is an Asian fusion restaurant with various locations " +
+                "throughout Detroit. It is hip, the food is tasty (aside " +
+                "from the curry, it is milder and not as spicy) and the " +
+                "drinks menu offers a nice variety of Asian beers and Japanese sakes.', '" +
+                user + "', '" + str_date + "', '0', '0');";
+        db.execSQL(sql);
+
+        sql = query + "('Detroit', 'MI', 'food', 'Izakaya Katsu'," +
+                "'OMG this place... everything about it is amazing! " +
+                "Also found as BASH Original Izakaya on google search " +
+                "results, this place is a truly hidden gem in midtown " +
+                "Detroit. With traditional floor seating, heated mats " +
+                "and private wooden booth seating, it feels like a " +
+                "little piece of Japan has been presented to Michigan " +
+                "residents. Delicious small portions of food and an " +
+                "extensive classic sake menu, this is the closest to " +
+                "Japanese \"bar food\" one can get. 10/10 definitely " +
+                "would recommend.', '" +
+                user + "', '" + str_date + "', '0', '0');";
+        db.execSQL(sql);
     }
 
     public boolean insert(Post post) throws SQLiteException  {
@@ -202,6 +257,7 @@ public class PostDAO extends SQLiteOpenHelper {
         return false;
     }
 
+    //to delete a post from the database
     public boolean delete(String clause, String[] args){
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
 
