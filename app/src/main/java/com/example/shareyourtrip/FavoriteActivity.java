@@ -6,8 +6,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -32,9 +37,11 @@ public class FavoriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
+        PostDAO postDAO = new PostDAO(this);
+
         //Assigning recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        postAdapter = new PostAdapter(favList);
+        postAdapter = new PostAdapter(favList, this);
 
 
 
@@ -44,7 +51,22 @@ public class FavoriteActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(postAdapter);
 
-        preparePostData();
+        //preparePostData();
+
+        // Reading favorite posts from database
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("select * from post ");
+        stringBuilder.append("inner join postFav on ");
+        stringBuilder.append("post.id = postFav.postid and post.user = postFav.useremail;");
+
+        try {
+            List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
+            favList.addAll(listPost);
+            postAdapter.notifyDataSetChanged();
+        }
+        catch (SQLiteException e){
+            Toast.makeText(FavoriteActivity.this,"There is a database problem!"+e.getMessage(),Toast.LENGTH_LONG).show();;
+        }
 
         //Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);

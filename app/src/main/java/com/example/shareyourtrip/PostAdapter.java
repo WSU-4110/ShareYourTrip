@@ -1,10 +1,12 @@
 package com.example.shareyourtrip;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.Toolbar;
 
@@ -27,6 +29,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         //This will be a list of user posts to display to the users
         private List<Post> postList;
+        private Post clickedPost;
+        private PostDAO postDAO;
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -43,13 +47,47 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 user = (TextView) view.findViewById(R.id.user);
                 date = (TextView) view.findViewById(R.id.date);
                 favButton = (ImageButton) view.findViewById(R.id.fav_button);
+
+                // on item click
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // get position
+                        int pos = getAdapterPosition();
+
+                        // check if item still exists
+                        if (pos != RecyclerView.NO_POSITION) {
+                            Post post = postList.get(pos);
+                            clickedPost = new Post(post);
+                        }
+                    }
+                });
+
+                favButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = getAdapterPosition();
+
+                        // check if item still exists
+                        if (pos != RecyclerView.NO_POSITION) {
+                            Post post = postList.get(pos);
+                            clickedPost = new Post(post);
+
+                            postDAO.insertFavPost(post);
+                        }
+                    }
+                });
             }
+
 
         }
 
+
         //Copy constructor
-        public PostAdapter(List<Post> postList) {
+        public PostAdapter(List<Post> postList, Context context) {
+
             this.postList = postList;
+            postDAO = new PostDAO(context);
         }
 
         //Returns a ViewHolder given the context its parent is in
@@ -82,4 +120,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public int getItemCount() {
             return postList.size();
         }
+
+        public Post getClickedPost(){
+            return clickedPost;
+        }
+
     }

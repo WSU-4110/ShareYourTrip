@@ -73,7 +73,7 @@ public class SearchActivity extends AppCompatActivity {
         final PostDAO postDAO = new PostDAO(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.search_rv);
-        postAdapter = new PostAdapter(postsList);
+        postAdapter = new PostAdapter(postsList,this);
 
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(postLayoutManager);

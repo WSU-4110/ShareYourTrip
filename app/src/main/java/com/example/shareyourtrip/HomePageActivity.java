@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +26,7 @@ public class HomePageActivity extends AppCompatActivity {
     private List<Post> postsList = new ArrayList<Post>();
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
+    private ImageButton favButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +35,10 @@ public class HomePageActivity extends AppCompatActivity {
 
         PostDAO postDAO = new PostDAO(this);
 
+
         //Assigning recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        postAdapter = new PostAdapter(postsList);
+        postAdapter = new PostAdapter(postsList,this);
 
         //Setting up our recycler view
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());

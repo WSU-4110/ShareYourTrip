@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHelper{
+public class PostFavDAO extends SQLiteOpenHelper implements DatabaseHelper{
     private static final String DBTABLE = "postFav";
     private String sql;
 
@@ -26,8 +26,8 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
         sql = "create table if not exists " + DBTABLE +
                 " (postid integer not null, "+
                 "useremail text not null, " +    //for storing user email
-                "primary key(post, user), " +
-                "foreign key (post) references post(id));";
+                "primary key(postid, useremail), " +
+                "foreign key (postid) references post(id));";
         db.execSQL(sql);
 
         initialize();
@@ -40,6 +40,11 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
     }
 
     public void initialize(){
+
+    }
+
+    @Override
+    public void initialize(SQLiteDatabase db) {
 
     }
 
@@ -68,20 +73,18 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
         return false;
     }
 
-    public boolean update(String post){
-        SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
-
-        if(0 < db.delete(DBNAME, "post = ?", new String [] {post})){ //checking that the number of rows deleted is greater than 0
-            return true;
-        }
+    @Override
+    public boolean update(String[] col, String[] val, String clause, String[] args) {
         return false;
     }
 
-    //TODO: check the function; see how this will be used
+    @Override
+    public Post getPost(Cursor cursor) throws SQLiteException {
+        return null;
+    }
 
-
-    public List<Post> listAllFavPost(String query, String[] col) throws SQLiteException {
-
+    @Override
+    public List<Post> listAllPost(String query, String[] col) throws SQLiteException {
         List<Post> listFavPost = new ArrayList<Post>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         final Cursor cursor = db.rawQuery(query, col);
@@ -95,4 +98,14 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
 
         return listFavPost;
     }
+
+    public boolean update(String post){
+        SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
+
+        if(0 < db.delete(DBNAME, "post = ?", new String [] {post})){ //checking that the number of rows deleted is greater than 0
+            return true;
+        }
+        return false;
+    }
+
 }
