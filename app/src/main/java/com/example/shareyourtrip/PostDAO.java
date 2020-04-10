@@ -183,4 +183,23 @@ public class PostDAO extends SQLiteOpenHelper {
         return listPost;
     }
 
+    //to update a post in the database
+    public boolean update(String[] col, String[] val, String clause, String[] args){
+        SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
+        ContentValues content = new ContentValues();
+
+        //loop to add onto the content set for update mapping
+        if(col.length!= val.length)
+            return false;
+
+        for(int i=0; i <col.length; i++){
+            content.put(col[i], val[i]);
+        }
+
+        if(0 < db.update(DBTABLE, content, clause, args)){ //checking that the number of rows deleted is greater than 0
+            return true;
+        }
+        return false;
+    }
+
 }
