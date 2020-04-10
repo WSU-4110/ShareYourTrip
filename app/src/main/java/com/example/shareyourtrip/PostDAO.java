@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class PostDAO extends SQLiteOpenHelper {
     private static final String dbname = "ShareYourTrip.db";
-    private static final int DB_VERSION =7;
+    private static final int DB_VERSION =10;
     private String sql;
 
 
@@ -64,7 +64,7 @@ public class PostDAO extends SQLiteOpenHelper {
 
     public boolean insert(String city, String state, String category, String title, String description, String user, String date) {
         Post post = new Post(city, state, category, title, description, user, date);
-        if(post.getCategory().replaceAll("\\s", "").isEmpty()||
+        if(post.getCategory().replaceAll("\\s", "").equals("Allcategories")||
         post.getCity().replaceAll("\\s", "").isEmpty()|| post.getDate().replaceAll("\\s", "").isEmpty()||
         post.getDescription().replaceAll("\\s", "").isEmpty()|| post.getState().replaceAll("\\s", "").isEmpty()||
         post.getTitle().replaceAll("\\s", "").isEmpty()|| post.getUser().replaceAll("\\s", "").isEmpty()) {
@@ -98,6 +98,7 @@ public class PostDAO extends SQLiteOpenHelper {
         List<Post> listPost = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         final Cursor cursor = db.rawQuery(query, col);
+        String id;
         String city;
         String state;
         String category;
@@ -112,6 +113,7 @@ public class PostDAO extends SQLiteOpenHelper {
         if(count>0) {
             cursor.moveToFirst();
             do {
+                id = cursor.getString(0); //need to start one after the id column. if 0->1; if 1->2
                 city = cursor.getString(1); //need to start one after the id column. if 0->1; if 1->2
                 state = cursor.getString(2);
                 category = cursor.getString(3);
@@ -120,7 +122,7 @@ public class PostDAO extends SQLiteOpenHelper {
                 user = cursor.getString(6);
                 date = cursor.getString(7);
 
-                Post post = new Post(city, state, category, title, description, user, date);
+                Post post = new Post(id, city, state, category, title, description, user, date);
                 listPost.add(post);
 
             } while (cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
