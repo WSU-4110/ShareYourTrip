@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -36,6 +37,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView location, category, title, description, user, date, likeCount, dislikecount;
         public ToggleButton favButton, likeButton, dislikeButton;
+        public Button deleteButton;
 
         //Constructor of the ViewHolder, initializes TextViews
         public MyViewHolder(View view) {
@@ -51,6 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             likeCount = (TextView) view.findViewById(R.id.like_count);
             dislikeButton = (ToggleButton) view.findViewById(R.id.dislike_button);
             dislikecount = (TextView) view.findViewById(R.id.dislike_count);
+            deleteButton = (Button) view.findViewById(R.id.deleteButton);
         }
     }
 
