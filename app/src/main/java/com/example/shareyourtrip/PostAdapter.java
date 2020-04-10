@@ -26,6 +26,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //This will be a list of user posts to display to the users
         private List<Post> postList;
         private boolean isProfilePage;
+        int count_dislike = 0;
+        int count_like = 0;
 
         //Checks the context we are in, if it's profile page, fav will be replaced with delete
         PostAdapter(Context context){
@@ -52,6 +54,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 dislikeButton = (ToggleButton) view.findViewById(R.id.dislike_button);
                 dislikecount = (TextView) view.findViewById(R.id.dislike_count);
             }
+
         }
 
         //Copy constructor
@@ -74,15 +77,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public void onBindViewHolder(final MyViewHolder holder, int position) {
 
             //Setting views with values from postList
-            Post post = postList.get(position);
+            final Post post = postList.get(position);
             holder.location.setText(post.getCity() + ", " + post.getState());
             holder.category.setText(post.getCategory());
             holder.title.setText(post.getTitle());
             holder.description.setText(post.getDescription());
             holder.user.setText(post.getUser());
             holder.date.setText(post.getDate());
-            //todo holder.likeCount.setText( post.getLikes);
-            //todo holder.dislikeCount.setText( post.getDislikes );
+            holder.likeCount.setText( post.getUp());
+            holder.dislikecount.setText( post.getDown());
 
             holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -104,19 +107,31 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     //If like button toggled on
-                    if (isChecked){
+                    if (isChecked) {
                         holder.likeButton.setBackgroundResource(R.drawable.ic_like_enabled);
                         //..and dislike is toggled on
                         if (holder.dislikeButton.isChecked()) {
                             holder.dislikeButton.setChecked(false);//toggle off dislike.
                         }
                         //todo: Put like database stuff here
+
+                        // Increases like count by 1
+                        count_like = Integer.parseInt(holder.likeCount.getText().toString());
+                        count_like++;
+                        holder.likeCount.setText(Integer.toString(count_like));
                     }
+
 
                     //If like button is toggled off
                     else{
                         holder.likeButton.setBackgroundResource(R.drawable.ic_like);
+
+                        // Decreases like count by 1
+                        count_like = Integer.parseInt(holder.likeCount.getText().toString());
+                        count_like = count_like - 1;
+                        holder.likeCount.setText(Integer.toString(count_like));
                     }
+
                 }
             });
 
@@ -131,13 +146,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             holder.likeButton.setChecked(false);//toggle off like
                         }
                         //todo: Put dislike database stuff here
+
+                        // Increases dislike count by 1
+
+
                     }
                     //If dislike is toggled off..
                     else{
                         holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike);
+
+                        // Decreases dislike count by 1
+                        
                     }
+
                 }
             });
+
         }
 
         //Returns size of list of posts
