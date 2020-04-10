@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private List<Post> postsList = new ArrayList<Post>();
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
+    private ProfilePostAdapter postAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,13 @@ public class ProfileActivity extends AppCompatActivity {
         PostDAO postDAO = new PostDAO(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_posts);
-        postAdapter = new PostAdapter(postsList);
+        postAdapter = new ProfilePostAdapter(postsList);
 
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(postLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(postAdapter);
+        recyclerView.setLayoutManager(postLayoutManager);
+
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("select * from post where ");
