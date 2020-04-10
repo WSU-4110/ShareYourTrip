@@ -84,37 +84,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             //todo holder.likeCount.setText( post.getLikes);
             //todo holder.dislikeCount.setText( post.getDislikes );
 
-            //Delete Button logic (only on profile activity)
-            if (isProfilePage){
-                holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        holder.favButton.setBackgroundResource(R.drawable.ic_delete);
-                        //If delete is pressed
-                        if (isChecked) {
-                            //todo: Put delete database stuff here
-                        }
+            holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    //If favorite is toggled on...
+                    if (isChecked) {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
+                        //todo: Put favorite database stuff here
                     }
-                });
-            }
-
-            //Favorite Button Logic
-            else {
-
-                holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        //If favorite is toggled on...
-                        if (isChecked) {
-                            holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                            //todo: Put favorite database stuff here
-                        }
-                        //If favorite is toggled off
-                        else {
-                            holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
-                        }
+                    //If favorite is toggled off
+                    else {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
                     }
-                });
-            }
+                }
+            });
+
 
             //like/dislike logic
             holder.likeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
