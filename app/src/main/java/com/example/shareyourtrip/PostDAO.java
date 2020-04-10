@@ -75,8 +75,9 @@ public class PostDAO extends SQLiteOpenHelper {
         }else{ return this.insert(post);}//<--------------------- NEED TO INSERT DATE TO STRING
     }
 
-    public Post getPost(String query, String[] col) throws SQLiteException {
-        SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
+    public Post getPost(Cursor cursor) throws SQLiteException {
+    //    public Post getPost(String query, String[] col) throws SQLiteException {
+        /*SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         Post post = new Post();
         final Cursor cursor = db.rawQuery(query, col);
 
@@ -95,6 +96,45 @@ public class PostDAO extends SQLiteOpenHelper {
 
         cursor.close();
 
+        return post;*/
+
+        Post post = new Post();
+        if (cursor != null) {
+
+            String id = cursor.getString(0); //need to start one after the id column. if 0->1; if 1->2
+            String city = cursor.getString(1); //need to start one after the id column. if 0->1; if 1->2
+            String state = cursor.getString(2);
+            String category = cursor.getString(3);
+            String title = cursor.getString(4);
+            String description = cursor.getString(5);
+            String user = cursor.getString(6);
+            String date = cursor.getString(7);
+            String up = cursor.getString(8);
+            String down = cursor.getString(9);
+
+            post.setId(id);
+            post.setCity(city);
+            post.setState(state);
+            post.setCategory(category);
+            post.setTitle(title);
+            post.setDescription(description);
+            post.setUser(user);
+            post.setDate(date);
+            post.setUp(up);
+            post.setDown(down);
+
+            /*post.setId(cursor.getString(0));
+            post.setCity(cursor.getString(1));
+            post.setState(cursor.getString(2));
+            post.setCategory(cursor.getString(3));
+            post.setTitle(cursor.getString(4));
+            post.setDescription(cursor.getString(5));
+            post.setUser(cursor.getString(6));
+            post.setDate(cursor.getString(7));
+            post.setUp(cursor.getString(8));
+            post.setDown(cursor.getString(9));*/
+            //cursor.close();
+        }
         return post;
     }
 
@@ -103,7 +143,7 @@ public class PostDAO extends SQLiteOpenHelper {
         List<Post> listPost = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         final Cursor cursor = db.rawQuery(query, col);
-        String id;
+        /*String id;
         String city;
         String state;
         String category;
@@ -115,12 +155,12 @@ public class PostDAO extends SQLiteOpenHelper {
         String down;
 
         //Post post;
-        int cc = cursor.getColumnCount();
+        int cc = cursor.getColumnCount();*/
         int count = cursor.getCount();
         if(count>0) {
             cursor.moveToFirst();
             do {
-                id = cursor.getString(0); //need to start one after the id column. if 0->1; if 1->2
+                /*id = cursor.getString(0); //need to start one after the id column. if 0->1; if 1->2
                 city = cursor.getString(1); //need to start one after the id column. if 0->1; if 1->2
                 state = cursor.getString(2);
                 category = cursor.getString(3);
@@ -132,7 +172,8 @@ public class PostDAO extends SQLiteOpenHelper {
                 down = cursor.getString(9);
 
                 Post post = new Post(id, city, state, category, title, description, user, date, up, down);
-                listPost.add(post);
+                listPost.add(post);*/
+                listPost.add(getPost(cursor));
 
             } while (cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
         }

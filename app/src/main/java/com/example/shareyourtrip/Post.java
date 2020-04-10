@@ -44,6 +44,7 @@ public class  Post {
         this.down = down;
     }
 
+
     public String getId() {
         return id;
     }
@@ -56,48 +57,48 @@ public class  Post {
         return city;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getState() {
+        return state;
     }
 
     public void setState(String state) {
         this.state = state;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public String getUser() {
+        return user;
+    }
+
     public void setUser(String user) {
-        this.description = user;
+        this.user = user;
     }
 
     public String getDate() {
