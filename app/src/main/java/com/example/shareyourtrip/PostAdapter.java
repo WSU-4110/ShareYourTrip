@@ -25,12 +25,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         //This will be a list of user posts to display to the users
         private List<Post> postList;
-        private boolean isProfilePage;
-
-        //Checks the context we are in, if it's profile page, fav will be replaced with delete
-        PostAdapter(Context context){
-            if (context instanceof ProfileActivity){ isProfilePage = true; }
-        }
 
         //This is a ViewHolder which holds 5 TextViews which make up our post.
         public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -28,7 +28,7 @@ public class FavoriteActivity extends AppCompatActivity {
     //todo: Figure out how to reference users favList instead of using test list
     private List<Post> favList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter = new PostAdapter(this);
+    private PostAdapter postAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
