@@ -148,7 +148,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         //todo: Put dislike database stuff here
 
                         // Increases dislike count by 1
-
+                        count_dislike = Integer.parseInt(holder.dislikecount.getText().toString());
+                        count_dislike++;
+                        holder.dislikecount.setText(Integer.toString(count_dislike));
 
                     }
                     //If dislike is toggled off..
@@ -156,7 +158,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike);
 
                         // Decreases dislike count by 1
-                        
+                        count_dislike = Integer.parseInt(holder.dislikecount.getText().toString());
+                        count_dislike--;
+                        holder.dislikecount.setText(Integer.toString(count_dislike));
                     }
 
                 }
