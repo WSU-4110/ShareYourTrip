@@ -24,8 +24,8 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
     @Override
     public void onCreate(SQLiteDatabase db) throws SQLiteException  {
         sql = "create table if not exists " + DBTABLE +
-                " (post integer not null, "+
-                "user text not null, " +    //for storing user email
+                " (postid integer not null, "+
+                "useremail text not null, " +    //for storing user email
                 "primary key(post, user), " +
                 "foreign key (post) references post(id));";
         db.execSQL(sql);
@@ -42,15 +42,14 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
     public void initialize(){
 
     }
-/*
-    public boolean insert(PostFav postFav) throws SQLiteException  {
+
+    public boolean insert(Post postFav) throws SQLiteException  {
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
 
         ContentValues cv = new ContentValues();
 
-        /*
-        cv.put("post", postFav.getCity());
-        cv.put("user", postFav.getState());
+        cv.put("postid", postFav.getId());
+        cv.put("useremail", FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         //long result = db.insert("postFav", null, cv);*//*
         //cannot simplify the following expression because this function returns a Boolean and not Long
@@ -58,7 +57,7 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
             return true;
         }
         return false;
-    }*/
+    }
 
     public boolean delete(String clause, String[] args){
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
@@ -78,38 +77,22 @@ public abstract class PostFavDAO extends SQLiteOpenHelper implements DatabaseHel
         return false;
     }
 
-    /* TODO: check the function; see how this will be used
-
-    public PostFav getPost(Cursor cursor) throws SQLiteException {
-
-//        PostFav postFav = new PostFav();
-        String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-        if (cursor != null && user.equals(cursor.getString(6))) {
-
-//            postFav.setPost(cursor.getString(0));
-//            postFav.setUser(cursor.getString(1));
-            cursor.close();
-        }
-        return postFav;
-    }
+    //TODO: check the function; see how this will be used
 
 
+    public List<Post> listAllFavPost(String query, String[] col) throws SQLiteException {
 
-    public List<PostFav> listAllPost(String query, String[] col) throws SQLiteException {
-
-        List<PostFav> listPost = new ArrayList<>();
+        List<Post> listFavPost = new ArrayList<Post>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         final Cursor cursor = db.rawQuery(query, col);
 
         do{
-            listPost.add(getPost(cursor));
+            listFavPost.add(getPost(cursor));
 
         }while (!cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
 
         cursor.close();
 
-        return listPost;
+        return listFavPost;
     }
-*/
 }
