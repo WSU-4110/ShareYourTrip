@@ -12,19 +12,20 @@ import java.util.List;
 import java.util.Date;
 
 public class PostDAO extends SQLiteOpenHelper {
-    private static final String dbname = "ShareYourTrip.db";
-    private static final int DB_VERSION =11;
+    private static final String DBNAME = "ShareYourTrip.db";
+    private static final String DBTABLE = "post";
+    private static final int DB_VERSION =12;
     private String sql;
 
 
     public PostDAO(Context context) {
-        super(context, dbname, null, DB_VERSION);
+        super(context, DBNAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) throws SQLiteException  {
-        sql = "create table if not exists post " +
-                "(id integer primary key autoincrement, "+
+        sql = "create table if not exists " + DBTABLE +
+                " (id integer primary key autoincrement, "+
                 "city text NOT NULL, "+
                 "state text NOT NULL, "+
                 "category text NOT NULL, "+
@@ -39,7 +40,7 @@ public class PostDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) throws SQLiteException {
-        db.execSQL("drop table if exists post");
+        db.execSQL("drop table if exists "+ DBTABLE);
         onCreate(db);
     }
 
