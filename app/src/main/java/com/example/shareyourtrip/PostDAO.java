@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class PostDAO extends SQLiteOpenHelper {
     private static final String dbname = "ShareYourTrip.db";
-    private static final int DB_VERSION =10;
+    private static final int DB_VERSION =11;
     private String sql;
 
 
@@ -31,7 +31,9 @@ public class PostDAO extends SQLiteOpenHelper {
                 "title text NOT NULL, "+
                 "description text not null, "+
                 "user text not null," +
-                "date text not null);"; //<-------------------------------------------- NEED TO ADD TABLE ATTRIBUTE FOR TIME
+                "date text not null, " +
+                "up integer default 0, " +
+                "down integer default 0);"; //<-------------------------------------------- NEED TO ADD TABLE ATTRIBUTE FOR TIME
         db.execSQL(sql);
     }
 
