@@ -2,4 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/post"
+        layout="@layout/post_list_row"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/post"
+        android:layout_marginTop="-20dp"
+        android:text="Delete Post" />
+
 </RelativeLayout>
