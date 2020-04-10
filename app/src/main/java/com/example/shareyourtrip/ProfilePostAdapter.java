@@ -42,6 +42,27 @@ public class ProfilePostAdapter extends PostAdapter {
 
     public void onBindViewHolder(final MyProfileViewHolder holder, int position) {
 
+        //Delete button logic
+        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                alertbox.setMessage("No Internet Connection");
+                alertbox.setTitle("Warning");
+                alertbox.setIcon(R.drawable.ic_delete);
+
+                alertbox.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface arg0,
+                                                int arg1) {
+
+                            }
+                        });
+                alertbox.show();
+            }
+        });
 
     }
 
