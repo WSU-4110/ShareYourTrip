@@ -56,7 +56,7 @@ public class PostDAO extends SQLiteOpenHelper {
         cv.put("user", post.getUser());
         cv.put("date", post.getDate());
 
-        long result = db.insert("post", null, cv);
+        long result = db.insert(DBTABLE, null, cv);
 
         if(result<=0){
             return false;
@@ -66,7 +66,7 @@ public class PostDAO extends SQLiteOpenHelper {
     }
 
     public boolean insert(String city, String state, String category, String title, String description, String user, String date) {
-        Post post = new Post(city, state, category, title, description, user, date);
+        Post post = new Post(city, state, category, title, description, user, date, "", "");
         if(post.getCategory().replaceAll("\\s", "").equals("Allcategories")||
         post.getCity().replaceAll("\\s", "").isEmpty()|| post.getDate().replaceAll("\\s", "").isEmpty()||
         post.getDescription().replaceAll("\\s", "").isEmpty()|| post.getState().replaceAll("\\s", "").isEmpty()||
@@ -89,6 +89,8 @@ public class PostDAO extends SQLiteOpenHelper {
             post.setDescription(cursor.getString(5));
             post.setUser(cursor.getString(6));
             post.setDate(cursor.getString(7));//<------------------------------------- NEED TO GET DATE FROM COLUMN AND CONVERT TO STRING
+            post.setUp(cursor.getString(8));
+            post.setDown(cursor.getString(9));
         }
 
         cursor.close();
@@ -109,6 +111,8 @@ public class PostDAO extends SQLiteOpenHelper {
         String description;
         String user;
         String date;
+        String up;
+        String down;
 
         //Post post;
         int cc = cursor.getColumnCount();
@@ -124,8 +128,10 @@ public class PostDAO extends SQLiteOpenHelper {
                 description = cursor.getString(5);
                 user = cursor.getString(6);
                 date = cursor.getString(7);
+                up = cursor.getString(8);
+                down = cursor.getString(9);
 
-                Post post = new Post(id, city, state, category, title, description, user, date);
+                Post post = new Post(id, city, state, category, title, description, user, date, up, down);
                 listPost.add(post);
 
             } while (cursor.moveToNext()); //exit loop if the cursor is already past the last entry in the result set.
