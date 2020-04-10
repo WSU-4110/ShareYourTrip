@@ -44,77 +44,39 @@ public class  Post {
         this.down = down;
     }
 
-
+    //Getters
     public String getId() {
         return id;
     }
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getCity() {
         return city;
     }
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getState() {
         return state;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public String getCategory() { return category; }
+    public String getDescription() { return description; }
+    public String getUser() { return user; }
+    public String getDate(){ return date;}
+    public String getUp() { return up; }
+    public String getDown() { return down; }
+
+    //Setters
+    public void setId(String id) { this.id = id; }
+    public void setCity(String city) {
+        this.city = city;
     }
     public void setState(String state) {
         this.state = state;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getUp() {
-        return up;
-    }
-
-    public void setUp(String up) {
-        this.up = up;
-    }
-
-    public String getDown() {
-        return down;
-    }
-
-    public void setDown(String down){
-            this.down = down;
-        }
+    public void setTitle(String title) { this.title = title; }
+    public void setCategory(String category) { this.category = category; }
+    public void setDescription(String description) { this.description = description; }
+    public void setUser(String user) { this.user = user; }
+    public void setDate(String date) { this.date = date; }
+    public void setUp(String up) { this.up = up; }
+    public void setDown(String down){ this.down = down; }
 }
