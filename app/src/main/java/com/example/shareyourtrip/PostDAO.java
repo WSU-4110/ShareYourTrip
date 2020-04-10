@@ -202,4 +202,13 @@ public class PostDAO extends SQLiteOpenHelper {
         return false;
     }
 
+    public boolean delete(String clause, String[] args){
+        SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
+
+        if(0 < db.delete(DBNAME, clause, args)){ //checking that the number of rows deleted is greater than 0
+            return true;
+        }
+        return false;
+    }
+
 }
