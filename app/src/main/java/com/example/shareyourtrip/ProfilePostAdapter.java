@@ -35,22 +35,33 @@ public class ProfilePostAdapter extends PostAdapter {
 
         //Delete button logic
         holder.deleteButton.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
-                alertbox.setMessage("No Internet Connection");
+                final AlertDialog.Builder alertbox = new AlertDialog.Builder(v.getRootView().getContext());
+                alertbox.setMessage("Are you sure you want to delete this post?");
                 alertbox.setTitle("Warning");
                 alertbox.setIcon(R.drawable.ic_delete);
 
+                //If the user says "Yes" to deleting a post.
                 alertbox.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface arg0,
                                                 int arg1) {
-
+                                //todo Put delete logic here
                             }
                         });
+
+                //If the user says "No" to deleting a post
+                alertbox.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface arg0,
+                                                int arg1) {
+                                //Do nothing
+                            }
+                        });
+
                 alertbox.show();
             }
         });

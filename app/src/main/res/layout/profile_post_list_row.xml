@@ -1,18 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="10dp"
+    android:layout_marginTop="10dp">
 
-    <include
-        android:id="@+id/post"
-        layout="@layout/post_list_row"/>
+    <TextView
+
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:background="@drawable/post_background"
+        />
+
+    <ToggleButton
+        android:id="@+id/fav_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/ic_unfavorited"
+        />
+
+    <ToggleButton
+        android:id="@+id/like_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toLeftOf="@id/like_count"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/ic_like"
+        />
+
+    <TextView
+        android:id="@+id/like_count"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_toLeftOf="@id/dislike_button"
+        android:text="300"
+        />
+
+    <ToggleButton
+        android:id="@+id/dislike_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toLeftOf="@id/dislike_count"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/ic_dislike"
+        />
+
+    <TextView
+        android:id="@+id/dislike_count"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_toLeftOf="@id/fav_button"
+        android:text="300"
+        />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/post_background"/>
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:textSize="14sp"
+        android:background="@drawable/post_background"
+        />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/post_background"
+        />
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/post_background"
+        />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/post_background"
+        />
 
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/post"
-        android:layout_marginTop="-20dp"
+        android:layout_below="@id/date"
         android:layout_centerHorizontal="true"
-        android:text="Delete Post" />
+        android:text="Delete Post"
+        android:background="@drawable/post_background"
+        />
 
 </RelativeLayout>
