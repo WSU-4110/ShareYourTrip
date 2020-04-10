@@ -29,6 +29,41 @@ public class ContactActivity extends AppCompatActivity {
 
         Button email = (Button) findViewById(R.id.Send_Button);
 
+        //Bottom Navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.favorite_nav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+
+                    case R.id.search_nav:
+                        Intent search_Intent = new Intent(ContactActivity.this, SearchActivity.class);
+                        startActivity(search_Intent);
+                        break;
+
+                    case R.id.post_nav:
+                        Intent post_Intent = new Intent(ContactActivity.this, PostActivity.class);
+                        startActivity(post_Intent);
+                        break;
+
+                    case R.id.home_nav:
+                        Intent home_Intent = new Intent(ContactActivity.this, HomePageActivity.class);
+                        startActivity(home_Intent);
+                        break;
+
+                    case R.id.profile_nav:
+                        Intent profile_Intent = new Intent(ContactActivity.this, ProfileActivity.class);
+                        startActivity(profile_Intent);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
+
+
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,43 +97,10 @@ public class ContactActivity extends AppCompatActivity {
 
                 //Sends email
                 startActivity(Intent.createChooser(sendEmail, "Send mail..."));
-
-                //Bottom Navigation
-                BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-                bottomNavigationView.setSelectedItemId(R.id.favorite_nav);
-                bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-
-                            case R.id.search_nav:
-                                Intent search_Intent = new Intent(ContactActivity.this, SearchActivity.class);
-                                startActivity(search_Intent);
-                                break;
-
-                            case R.id.post_nav:
-                                Intent post_Intent = new Intent(ContactActivity.this, PostActivity.class);
-                                startActivity(post_Intent);
-                                break;
-
-                            case R.id.home_nav:
-                                Intent home_Intent = new Intent(ContactActivity.this, HomePageActivity.class);
-                                startActivity(home_Intent);
-                                break;
-
-                            case R.id.profile_nav:
-                                Intent profile_Intent = new Intent(ContactActivity.this, ProfileActivity.class);
-                                startActivity(profile_Intent);
-                                break;
-                        }
-
-
-                        return false;
-                    }
-                });
             }
         });
     }
+
 
     @Override
     public void onResume() {
