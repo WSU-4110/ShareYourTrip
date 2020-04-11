@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
+import android.database.sqlite.SQLiteException;
+
+import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
+
 
     private List<Post> favList = new ArrayList<>();
     private List<Post> postsList = new ArrayList<Post>();
@@ -30,6 +33,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
@@ -55,10 +59,11 @@ public class HomePageActivity extends AppCompatActivity {
             List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
             postsList.addAll(listPost);
             postAdapter.notifyDataSetChanged();
+        } catch (SQLiteException e) {
+            Toast.makeText(HomePageActivity.this, "There is a database problem!" + e.getMessage(), Toast.LENGTH_LONG).show();
+            ;
         }
-        catch (SQLiteException e){
-            Toast.makeText(HomePageActivity.this,"There is a database problem!"+e.getMessage(),Toast.LENGTH_LONG).show();;
-        }
+
 
         //Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -95,6 +100,7 @@ public class HomePageActivity extends AppCompatActivity {
         });
     }
 
+
     //Used for Testing
     private void preparePostData(){
 
@@ -115,3 +121,4 @@ public class HomePageActivity extends AppCompatActivity {
         postAdapter.notifyDataSetChanged();
     }
 }
+
