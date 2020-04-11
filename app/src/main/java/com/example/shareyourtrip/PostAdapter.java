@@ -1,5 +1,7 @@
 package com.example.shareyourtrip;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +9,10 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -28,6 +33,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         private boolean isProfilePage;
         int count_dislike = 0;
         int count_like = 0;
+        boolean flag = false;
+        String[] colarr = new String[] {"t"};
+        String[] valarr = new String[] {"t"};
+        String[] argsarr = new String[] {"t"};
+        PostDAO postDAO;
 
         //Checks the context we are in, if it's profile page, fav will be replaced with delete
         PostAdapter(Context context){
@@ -65,6 +75,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //Returns a ViewHolder given the context its parent is in
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            postDAO = new PostDAO(parent.getContext());
 
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.post_list_row, parent, false);
@@ -118,6 +130,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         // Increases like count by 1
                         count_like = Integer.parseInt(holder.likeCount.getText().toString());
                         count_like++;
+                        post.setUp(Integer.toString(count_like));
                         holder.likeCount.setText(Integer.toString(count_like));
                     }
 
@@ -129,9 +142,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         // Decreases like count by 1
                         count_like = Integer.parseInt(holder.likeCount.getText().toString());
                         count_like = count_like - 1;
+                        post.setUp(Integer.toString(count_like));
                         holder.likeCount.setText(Integer.toString(count_like));
                     }
 
+
+                    // Set array values for database
+                    colarr[0] = "up";
+                    valarr[0] = holder.likeCount.getText().toString();
+                    argsarr[0] = post.getId();
+
+                    
                 }
             });
 
@@ -150,6 +171,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         // Increases dislike count by 1
                         count_dislike = Integer.parseInt(holder.dislikecount.getText().toString());
                         count_dislike++;
+                        post.setDown(Integer.toString(count_dislike));
                         holder.dislikecount.setText(Integer.toString(count_dislike));
 
                     }
@@ -160,8 +182,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         // Decreases dislike count by 1
                         count_dislike = Integer.parseInt(holder.dislikecount.getText().toString());
                         count_dislike--;
+                        post.setDown(Integer.toString(count_dislike));
                         holder.dislikecount.setText(Integer.toString(count_dislike));
+
                     }
+
+                    colarr[0] = "down";
+                    valarr[0] = holder.dislikecount.getText().toString();
+                    argsarr[0] = post.getId();
+
 
                 }
             });
@@ -173,4 +202,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public int getItemCount() {
             return postList.size();
         }
+
     }
