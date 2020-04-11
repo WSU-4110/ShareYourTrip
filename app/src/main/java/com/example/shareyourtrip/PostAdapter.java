@@ -137,40 +137,42 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     //If favorite is toggled on...
                     if (isChecked) {
                         holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                        //todo: Put favorite database stuff here
-                        int pos = holder.getAdapterPosition();
 
-                        // check if item still exists
-                        if (pos != RecyclerView.NO_POSITION) {
-                            Post post = postList.get(pos);
-                            clickedPost = new Post(post);
+                        if( (currentContext instanceof SearchActivity) || (currentContext instanceof HomePageActivity) ) {
+                            //todo: Put favorite database stuff here
+                            int pos = holder.getAdapterPosition();
 
-                            postDAO.insertFavPost(post);
+                            // check if item still exists
+                            if (pos != RecyclerView.NO_POSITION) {
+                                Post post = postList.get(pos);
+                                clickedPost = new Post(post);
+
+                                if (!postDAO.insertFavPost(post)) {
+                                    Toast.makeText(currentContext, "This post is already you favortie!", Toast.LENGTH_LONG).show();
+                                }
+                            }
                         }
                     }
                     //If favorite is toggled off
                     else {
                         holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
 
-                        int pos = holder.getAdapterPosition();
-                        if (pos != RecyclerView.NO_POSITION) {
-                            Post post = postList.get(pos);
-                            clickedPost = new Post(post);
-//                            StringBuilder query = new StringBuilder();
-//                            query.append("delete from postFav where ");
-//                            query.append("postid = '");
-//                            query.append(clickedPost.getId());
-//                            query.append("' and ");
-//                            query.append("useremail = '");
-//                            query.append(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-//                            query.append("';");
+                        //Unfavorite functionality only works in favorite page
+                        if(currentContext instanceof FavoriteActivity) {
+                            int pos = holder.getAdapterPosition();
+                            if (pos != RecyclerView.NO_POSITION) {
+                                Post post = postList.get(pos);
+                                clickedPost = new Post(post);
 
-                            String[] args = {clickedPost.getId().toString(),FirebaseAuth.getInstance().getCurrentUser().getEmail()};
-                            postDAO.deleteFavPost("postid = '"+clickedPost.getId().toString()+"' and useremail = '"+FirebaseAuth.getInstance().getCurrentUser().getEmail()+"'",null);
+                                String[] args = {clickedPost.getId().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()};
+                                postDAO.deleteFavPost("postid = '" + clickedPost.getId().toString() + "' and useremail = '" + FirebaseAuth.getInstance().getCurrentUser().getEmail() + "'", null);
+                            }
                         }
                     }
                 }
             });
+
+            //this.notifyDataSetChanged();
 
             // Reading favorite posts from database
             StringBuilder stringBuilder = new StringBuilder();

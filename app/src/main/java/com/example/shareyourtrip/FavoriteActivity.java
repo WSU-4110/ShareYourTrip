@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,9 @@ public class FavoriteActivity extends AppCompatActivity {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("select * from post ");
         stringBuilder.append("inner join postFav on ");
-        stringBuilder.append("post.id = postFav.postid and post.user = postFav.useremail;");
+        stringBuilder.append("post.id = postFav.postid and postFav.useremail = '");
+        stringBuilder.append(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        stringBuilder.append("';");
 
         try {
             List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
