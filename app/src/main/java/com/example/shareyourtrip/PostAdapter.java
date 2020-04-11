@@ -192,7 +192,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     valarr[0] = holder.dislikecount.getText().toString();
                     argsarr[0] = post.getId();
 
-
+                    //Code to update database
+                    flag = postDAO.update(colarr, valarr, "id=?", argsarr);
                 }
             });
 
