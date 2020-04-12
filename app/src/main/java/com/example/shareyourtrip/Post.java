@@ -65,7 +65,7 @@ public class  Post {
     public String getDate(){ return date;}
     public String getUp() { return up; }
     public String getDown() { return down; }
-    public boolean isFavorited() { return isFavorited; }
+    public boolean getFavorited() { return isFavorited; }
 
     //Setters
     public void setId(String id) { this.id = id; }

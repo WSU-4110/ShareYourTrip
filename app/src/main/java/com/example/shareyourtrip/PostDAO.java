@@ -122,8 +122,8 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
         }
     }
 
-    public boolean insert(String city, String state, String category, String title, String description, String user, String date) {
-        Post post = new Post(city, state, category, title, description, user, date, "", "");
+    public boolean insert(String city, String state, String category, String title, String description, String user, String date, boolean isFavorited) {
+        Post post = new Post(city, state, category, title, description, user, date, "", "", isFavorited);
         if(post.getCategory().replaceAll("\\s", "").equals("Allcategories")||
         post.getCity().replaceAll("\\s", "").isEmpty()|| post.getDate().replaceAll("\\s", "").isEmpty()||
         post.getDescription().replaceAll("\\s", "").isEmpty()|| post.getState().replaceAll("\\s", "").isEmpty()||

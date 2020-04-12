@@ -73,6 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         //Setting views with values from postList
         Post post = postList.get(position);
+
         holder.location.setText(post.getCity() + ", " + post.getState());
         holder.category.setText(post.getCategory());
         holder.title.setText(post.getTitle());
@@ -82,16 +83,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         //todo holder.likeCount.setText( post.getLikes);
         //todo holder.dislikeCount.setText( post.getDislikes );
 
+
+        //TODO: add isFavorited to database
+        //If the post is favorited, fill in heart and set button on by default
+        if (post.getFavorited()) {
+            holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
+            holder.favButton.setChecked(true);
+        }
+        //If the post isnt favorited, empty heart and set button off by default
+        else{
+            holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
+            holder.favButton.setChecked(false);
+        }
+
+
         holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //If favorite is toggled on...
                 if (isChecked) {
                     holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                    //todo: Put favorite database stuff here
+                    //todo: Check database and see if user already faved this. if not
+                    //todo: add it, if so, do nothing.
+
                 }
                 //If favorite is toggled off
                 else {
                     holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
+                    //todo: If this is one of the users favorite posts, remove it from their
+                    //todo: list of favorites in database, otherwise do nothing.
                 }
             }
         });
