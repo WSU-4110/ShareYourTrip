@@ -52,12 +52,30 @@ public class HomePageActivity extends AppCompatActivity {
 
         //preparePostData();
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("select * from post order by id desc;");
+        StringBuilder allPostsQuery = new StringBuilder();
+        allPostsQuery.append("select * from post order by id desc;");
+
+        StringBuilder favPostsQuery = new StringBuilder();
+        favPostsQuery.append("select * from post ");
+        favPostsQuery.append("inner join postFav on ");
+        favPostsQuery.append("post.id = postFav.postid and postFav.useremail = '");
+        favPostsQuery.append(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        favPostsQuery.append("';");
 
         try {
-            List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
+            List<Post> listPost = postDAO.listAllPost(allPostsQuery.toString(), null);
             postsList.addAll(listPost);
+            List<Post> listFavPost = postDAO.listAllPost(favPostsQuery.toString(), null);
+            favList.addAll(listFavPost);
+            for(Post regPost : postsList)
+            {
+                for(Post favPost : favList){
+                    if(regPost.getId().equals(favPost.getId())){
+                        regPost.setFavorited(true);
+                        break;
+                    }
+                }
+            }
             postAdapter.notifyDataSetChanged();
         } catch (SQLiteException e) {
             Toast.makeText(HomePageActivity.this, "There is a database problem!" + e.getMessage(), Toast.LENGTH_LONG).show();
