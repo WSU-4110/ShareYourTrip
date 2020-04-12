@@ -119,63 +119,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.favButton.setChecked(false);
         }
 
-        /*
-        // Reading favorite posts from database
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("select * from post ");
-        stringBuilder.append("inner join postFav on ");
-        stringBuilder.append("post.id = postFav.postid and post.user = postFav.useremail;");
-        favPostList = postDAO.listAllPost(stringBuilder.toString(), null);
-
-        if(currentContext instanceof FavoriteActivity){
-            holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-        }
-        else if((currentContext instanceof HomePageActivity) || (currentContext instanceof SearchActivity)) {
-            //TODO: need to be able to set different backgrounds for posts in home and seach pages based on a post being faved.
-            // Right now seems like you can only set one value for all the posts in a page
-//                for (Post favPost : favPostList){
-//                    for (Post regPost: postList) {
-//                        if(regPost.getId().equals(favPost.getId())){
-//                            holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-//                        }
-//                        else{
-//                            holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
-//                        }
-//                    }
-//                }
-        }
-*/
 
         holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //If favorite is toggled on...
-                if (isChecked) {
-                    holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                    //todo: Check database and see if user already faved this. if not
-                    //todo: add it, if so, do nothing.
-                    if( (currentContext instanceof SearchActivity) || (currentContext instanceof HomePageActivity) ) {
-                        //todo: Put favorite database stuff here
+                if( (currentContext instanceof SearchActivity) || (currentContext instanceof HomePageActivity) ) {
+                    if (isChecked) {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
                         int pos = holder.getAdapterPosition();
-
-                        // check if item still exists
                         if (pos != RecyclerView.NO_POSITION) {
                             Post post = postList.get(pos);
                             clickedPost = new Post(post);
                             post.setFavorited(true);
-                            if (!postDAO.insertFavPost(post)) {
+                            postDAO.insertFavPost(post);
+                        }
+                    }
+                    else{
+                        int pos = holder.getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            Post post = postList.get(pos);
+                            clickedPost = new Post(post);
+                            if (post.getFavorited()) {
                                 Toast.makeText(currentContext, "This post is already you favortie!", Toast.LENGTH_LONG).show();
                             }
                         }
                     }
-
                 }
-                //If favorite is toggled off
-                else {
-                    holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
-                    //todo: If this is one of the users favorite posts, remove it from their
-                    //todo: list of favorites in database, otherwise do nothing.
-                    //Unfavorite functionality only works in favorite page
-                    if(currentContext instanceof FavoriteActivity) {
+
+                if(currentContext instanceof FavoriteActivity) {
+                    if (!isChecked) {
                         int pos = holder.getAdapterPosition();
                         if (pos != RecyclerView.NO_POSITION) {
                             Post post = postList.get(pos);
@@ -186,6 +157,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         }
                     }
                 }
+
             }
         });
 
