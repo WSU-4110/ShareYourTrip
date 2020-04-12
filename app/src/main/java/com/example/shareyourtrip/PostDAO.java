@@ -25,10 +25,15 @@ public class PostDAO extends SQLiteOpenHelper {
     private static final String POST_TABLE = "post";
     private static final String POST_FAV_TABLE = "postFav";
 
+    SQLiteDatabase db;
 
 
     public PostDAO(Context context) {
+
         super(context, DBNAME, null, DB_VERSION);
+
+        db = getWritableDatabase();
+        onCreate(db);
     }
 
     @Override
@@ -55,7 +60,7 @@ public class PostDAO extends SQLiteOpenHelper {
         db.execSQL(postFavSql);
         db.execSQL(postSql);
 
-        initialize(db);
+        //initialize(db);
     }
 
     @Override
@@ -213,6 +218,8 @@ public class PostDAO extends SQLiteOpenHelper {
     }
 
     public List<Post> listAllPost(String query, String[] col) throws SQLiteException {
+
+
 
         List<Post> listPost = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
