@@ -103,7 +103,7 @@ public class PostActivity extends AppCompatActivity {
                                 title.getText().toString(),
                                 description.getText().toString(),
                                 FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                                str_date);// storing date in format YYYY-MM-DD HH:MM:SSl
+                                str_date, false);// storing date in format YYYY-MM-DD HH:MM:SSl
 
                         if(flag){
                             Intent post_page_intent = new Intent(PostActivity.this, ProfileActivity.class);

@@ -13,6 +13,7 @@ public class  Post {
     private String date;
     private String up;
     private String down;
+    private boolean isFavorited;
 
     public Post() {
         this.id = null;
@@ -27,6 +28,7 @@ public class  Post {
         this.down = null;
     }
 
+
     public Post(Post otherPost)
     {
         this.id = otherPost.id;
@@ -39,14 +41,16 @@ public class  Post {
         this.date = otherPost.date;
         this.up = otherPost.up;
         this.down = otherPost.down;
+        this.isFavorited = otherPost.isFavorited;
     }
 
-    public Post(String id, String city,String state, String category, String title, String description, String user, String date, String up, String down) {
-        this(city,state, category, title, description, user, date, up, down);
+
+    public Post(String id, String city,String state, String category, String title, String description, String user, String date, String up, String down, boolean isFavorited) {
+        this(city,state, category, title, description, user, date, up, down, isFavorited);
         this.id = id;
     }
 
-    public Post(String city, String state, String category, String title, String description, String user, String date, String up, String down) {
+    public Post(String city, String state, String category, String title, String description, String user, String date, String up, String down, boolean isFavorited) {
         this.city = city;
         this.state = state;
         this.category = category;
@@ -56,6 +60,7 @@ public class  Post {
         this.date = date;
         this.up = up;
         this.down = down;
+        this.isFavorited = isFavorited;
     }
 
     //Getters
@@ -77,6 +82,7 @@ public class  Post {
     public String getDate(){ return date;}
     public String getUp() { return up; }
     public String getDown() { return down; }
+    public boolean getFavorited() { return isFavorited; }
 
     //Setters
     public void setId(String id) { this.id = id; }
@@ -92,5 +98,6 @@ public class  Post {
     public void setUser(String user) { this.user = user; }
     public void setDate(String date) { this.date = date; }
     public void setUp(String up) { this.up = up; }
-    public void setDown(String down){ this.down = down; }
+    public void setDown(String down) { this.down = down; }
+    public void setFavorited(boolean isFavorited) { this.isFavorited = isFavorited; }
 }
