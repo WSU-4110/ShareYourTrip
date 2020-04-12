@@ -6,28 +6,39 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
+public class PostDAO extends SQLiteOpenHelper {
     /*private static final String DBNAME = "ShareYourTrip.db";
     private static final String DBTABLE = "post";
     private static final int DB_VERSION =15;
     private String sql;*/
-    private static final String DBTABLE = "post";
-    private String sql;
+    private static final String DBNAME = "ShareYourTrip.db";
+    private static final int DB_VERSION =15;
+    private static final String POST_TABLE = "post";
+    private static final String POST_FAV_TABLE = "postFav";
+
+    SQLiteDatabase db;
 
 
     public PostDAO(Context context) {
+
         super(context, DBNAME, null, DB_VERSION);
+
+        db = getWritableDatabase();
+        onCreate(db);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) throws SQLiteException  {
-        sql = "create table if not exists " + DBTABLE +
+        String postSql = "create table if not exists " + POST_TABLE +
                 " (id integer primary key autoincrement, "+
                 "city text NOT NULL, "+
                 "state text NOT NULL, "+
@@ -38,20 +49,30 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
                 "date text not null, " +
                 "up integer default 0, " +
                 "down integer default 0);"; //<-------------------------------------------- NEED TO ADD TABLE ATTRIBUTE FOR TIME
-        db.execSQL(sql);
 
-        initialize(db);
+        String postFavSql = "create table if not exists " + POST_FAV_TABLE +
+                " (postid integer not null, "+
+                "useremail text not null, " +    //for storing user email
+                "primary key(postid, useremail), " +
+                "foreign key (postid) references post(id));";
+
+
+        db.execSQL(postFavSql);
+        db.execSQL(postSql);
+
+        //initialize(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) throws SQLiteException {
-        db.execSQL("drop table if exists "+ DBTABLE);
+        db.execSQL("drop table if exists "+ POST_TABLE);
+        db.execSQL("drop table if exists "+ POST_FAV_TABLE);
         onCreate(db);
     }
 
     public void initialize(SQLiteDatabase db) {
         String query = "insert into " +
-                DBTABLE +
+                POST_TABLE +
                 " (city, state, category, title, description, user, date, up, down) values";
 
         String user = "lc@a.com";
@@ -101,7 +122,7 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
         db.execSQL(sql);
     }
 
-    public boolean insert(Post post) throws SQLiteException  {
+    public boolean insertPost(Post post) throws SQLiteException  {
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
 
         ContentValues cv = new ContentValues();
@@ -113,7 +134,7 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
         cv.put("user", post.getUser());
         cv.put("date", post.getDate());
 
-        long result = db.insert(DBTABLE, null, cv);
+        long result = db.insert(POST_TABLE, null, cv);
 
         if(result<=0){
             return false;
@@ -122,14 +143,15 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
         }
     }
 
-    public boolean insert(String city, String state, String category, String title, String description, String user, String date, boolean isFavorited) {
+
+    public boolean insertPostByValues(String city, String state, String category, String title, String description, String user, String date, boolean isFavorited) {
         Post post = new Post(city, state, category, title, description, user, date, "", "", isFavorited);
         if(post.getCategory().replaceAll("\\s", "").equals("Allcategories")||
         post.getCity().replaceAll("\\s", "").isEmpty()|| post.getDate().replaceAll("\\s", "").isEmpty()||
         post.getDescription().replaceAll("\\s", "").isEmpty()|| post.getState().replaceAll("\\s", "").isEmpty()||
         post.getTitle().replaceAll("\\s", "").isEmpty()|| post.getUser().replaceAll("\\s", "").isEmpty()) {
             return false;
-        }else{ return this.insert(post);}//<--------------------- NEED TO INSERT DATE TO STRING
+        }else{ return this.insertPost(post);}//<--------------------- NEED TO INSERT DATE TO STRING
     }
 
     public Post getPost(Cursor cursor) throws SQLiteException {
@@ -197,6 +219,8 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
 
     public List<Post> listAllPost(String query, String[] col) throws SQLiteException {
 
+
+
         List<Post> listPost = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase(); //connecting to the current database
         final Cursor cursor = db.rawQuery(query, col);
@@ -241,7 +265,7 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
     }
 
     //to update a post in the database
-    public boolean update(String[] col, String[] val, String clause, String[] args){
+    public boolean updatePost(String[] col, String[] val, String clause, String[] args){
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
         ContentValues content = new ContentValues();
 
@@ -253,17 +277,42 @@ public class PostDAO extends SQLiteOpenHelper implements DatabaseHelper {
             content.put(col[i], val[i]);
         }
 
-        if(0 < db.update(DBTABLE, content, clause, args)){ //checking that the number of rows deleted is greater than 0
+        if(0 < db.update(POST_TABLE, content, clause, args)){ //checking that the number of rows deleted is greater than 0
             return true;
         }
         return false;
     }
 
     //to delete a post from the database
-    public boolean delete(String clause, String[] args){
+    public boolean deletePost(String clause, String[] args){
         SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
 
-        if(0 < db.delete(DBNAME, clause, args)){ //checking that the number of rows deleted is greater than 0
+        if(0 < db.delete(POST_TABLE, clause, args)){ //checking that the number of rows deleted is greater than 0
+            return true;
+        }
+        return false;
+    }
+
+    public boolean insertFavPost(Post postFav) throws SQLiteException  {
+        SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
+
+        ContentValues cv = new ContentValues();
+
+        cv.put("postid", postFav.getId());
+        cv.put("useremail", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        //long result = db.insert("postFav", null, cv);*//*
+        //cannot simplify the following expression because this function returns a Boolean and not Long
+        if(db.insert(POST_FAV_TABLE, null, cv)!=-1){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteFavPost(String clause, String[] args){
+        SQLiteDatabase db = this.getWritableDatabase(); //connecting to the current database
+
+        if(0 < db.delete(POST_FAV_TABLE, clause, args)){ //checking that the number of rows deleted is greater than 0
             return true;
         }
         return false;

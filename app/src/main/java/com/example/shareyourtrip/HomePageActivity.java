@@ -9,7 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import android.view.View;
+import android.widget.ImageButton;
+
 import android.database.sqlite.SQLiteException;
+
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +29,7 @@ public class HomePageActivity extends AppCompatActivity {
     private List<Post> postsList = new ArrayList<Post>();
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
+    private ImageButton favButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +39,10 @@ public class HomePageActivity extends AppCompatActivity {
 
         PostDAO postDAO = new PostDAO(this);
 
+
         //Assigning recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        postAdapter = new PostAdapter(postsList);
+        postAdapter = new PostAdapter(postsList,this);
 
         //Setting up our recycler view
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -45,12 +52,30 @@ public class HomePageActivity extends AppCompatActivity {
 
         //preparePostData();
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("select * from post order by id desc;");
+        StringBuilder allPostsQuery = new StringBuilder();
+        allPostsQuery.append("select * from post order by id desc;");
+
+        StringBuilder favPostsQuery = new StringBuilder();
+        favPostsQuery.append("select * from post ");
+        favPostsQuery.append("inner join postFav on ");
+        favPostsQuery.append("post.id = postFav.postid and postFav.useremail = '");
+        favPostsQuery.append(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        favPostsQuery.append("';");
 
         try {
-            List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
+            List<Post> listPost = postDAO.listAllPost(allPostsQuery.toString(), null);
             postsList.addAll(listPost);
+            List<Post> listFavPost = postDAO.listAllPost(favPostsQuery.toString(), null);
+            favList.addAll(listFavPost);
+            for(Post regPost : postsList)
+            {
+                for(Post favPost : favList){
+                    if(regPost.getId().equals(favPost.getId())){
+                        regPost.setFavorited(true);
+                        break;
+                    }
+                }
+            }
             postAdapter.notifyDataSetChanged();
         } catch (SQLiteException e) {
             Toast.makeText(HomePageActivity.this, "There is a database problem!" + e.getMessage(), Toast.LENGTH_LONG).show();
