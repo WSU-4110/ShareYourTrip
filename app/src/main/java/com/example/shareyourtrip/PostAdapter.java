@@ -1,6 +1,7 @@
 package com.example.shareyourtrip;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +46,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     //Copy constructor
     public PostAdapter(List<Post> postList) {
         this.postList = postList;
+    }
+
+    public static void alertDisplay(Context context,String title, String msg){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     //This is a ViewHolder which holds 5 TextViews which make up our post.
@@ -139,7 +154,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             Post post = postList.get(pos);
                             clickedPost = new Post(post);
                             if (post.getFavorited()) {
-                                Toast.makeText(currentContext, "This post is already you favortie!", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(currentContext, "This post is already you favortie!", Toast.LENGTH_LONG).show();
+                                alertDisplay(currentContext,"Unsuccessful Favoriting", "This post is already your favorite!");
                             }
                         }
                     }
@@ -154,6 +170,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             post.setFavorited(false);
                             String[] args = {clickedPost.getId().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()};
                             postDAO.deleteFavPost("postid = '" + clickedPost.getId().toString() + "' and useremail = '" + FirebaseAuth.getInstance().getCurrentUser().getEmail() + "'", null);
+                            holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
+                            alertDisplay(currentContext,"Unfavorited Successfully","You unfavorited this post!");
+                            //Toast.makeText(currentContext,"You unfavorited this post!",Toast.LENGTH_LONG).show();
+
                         }
                     }
                 }
