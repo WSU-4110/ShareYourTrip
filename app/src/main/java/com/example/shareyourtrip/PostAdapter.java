@@ -1,19 +1,24 @@
 package com.example.shareyourtrip;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import java.util.ArrayList;
+
 import java.util.List;
 
 //This code showcases the design pattern "Adapters"
@@ -28,19 +33,41 @@ import java.util.List;
 //Todo: Make fav button do something
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
+
     //This will be a list of user posts to display to the users
-    protected List<Post> postList;
+    private List<Post> postList;
     int count_dislike = 0;
     int count_like = 0;
     boolean flag = false;
     String[] colarr = new String[] {"t"};
     String[] valarr = new String[] {"t"};
     String[] argsarr = new String[] {"t"};
-    PostDAO postDAO;
+    private PostDAO postDAO;
+    private List<Post> favPostList;
+    Context currentContext;
+    private Post clickedPost;
+
+
+    private boolean isProfilePage;
+
+
 
     //Copy constructor
     public PostAdapter(List<Post> postList) {
         this.postList = postList;
+    }
+
+    public static void alertDisplay(Context context,String title, String msg){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     //This is a ViewHolder which holds 5 TextViews which make up our post.
@@ -65,6 +92,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             dislikecount = (TextView) view.findViewById(R.id.dislike_count);
             deleteButton = (Button) view.findViewById(R.id.deleteButton);
         }
+    }
+
+
+    //Copy constructor
+    public PostAdapter(List<Post> postList, Context context) {
+
+        this.postList = postList;
+        postDAO = new PostDAO(context);
+        currentContext = context;
+        favPostList = new ArrayList<Post>();
     }
 
     //Returns a ViewHolder given the context its parent is in
@@ -111,19 +148,47 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         holder.favButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //If favorite is toggled on...
-                if (isChecked) {
-                    holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
-                    //todo: Check database and see if user already faved this. if not
-                    //todo: add it, if so, do nothing.
+                if( (currentContext instanceof SearchActivity) || (currentContext instanceof HomePageActivity) ) {
+                    if (isChecked) {
+                        holder.favButton.setBackgroundResource(R.drawable.ic_favorite);
+                        int pos = holder.getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            Post post = postList.get(pos);
+                            clickedPost = new Post(post);
+                            post.setFavorited(true);
+                            postDAO.insertFavPost(post);
+                        }
+                    }
+                    else{
+                        int pos = holder.getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            Post post = postList.get(pos);
+                            clickedPost = new Post(post);
+                            if (post.getFavorited()) {
+                                //Toast.makeText(currentContext, "This post is already you favortie!", Toast.LENGTH_LONG).show();
+                                alertDisplay(currentContext,"Unsuccessful Favoriting", "This post is already your favorite!");
+                            }
+                        }
+                    }
+                }
 
+                if(currentContext instanceof FavoriteActivity) {
+                    if (!isChecked) {
+                        int pos = holder.getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            Post post = postList.get(pos);
+                            clickedPost = new Post(post);
+                            post.setFavorited(false);
+                            String[] args = {clickedPost.getId().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()};
+                            postDAO.deleteFavPost("postid = '" + clickedPost.getId().toString() + "' and useremail = '" + FirebaseAuth.getInstance().getCurrentUser().getEmail() + "'", null);
+                            holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
+                            alertDisplay(currentContext,"Unfavorited Successfully","You unfavorited this post!");
+                            //Toast.makeText(currentContext,"You unfavorited this post!",Toast.LENGTH_LONG).show();
+
+                        }
+                    }
                 }
-                //If favorite is toggled off
-                else {
-                    holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
-                    //todo: If this is one of the users favorite posts, remove it from their
-                    //todo: list of favorites in database, otherwise do nothing.
-                }
+
             }
         });
 
@@ -165,7 +230,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 argsarr[0] = post.getId();
 
                 //Code to update database
-                flag = postDAO.update( colarr, valarr, "id=?", argsarr);
+                flag = postDAO.updatePost( colarr, valarr, "id=?", argsarr);
 
             }
         });
@@ -206,15 +271,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 argsarr[0] = post.getId();
 
                 //Code to update database
-                flag = postDAO.update(colarr, valarr, "id=?", argsarr);
+                flag = postDAO.updatePost(colarr, valarr, "id=?", argsarr);
 
             }
         });
     }
+
 
     //Returns size of list of posts
     @Override
     public int getItemCount() {
         return postList.size();
     }
+
+    public Post getClickedPost(){
+        return clickedPost;
+    }
+
 }

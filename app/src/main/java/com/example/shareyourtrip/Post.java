@@ -28,6 +28,23 @@ public class  Post {
         this.down = null;
     }
 
+
+    public Post(Post otherPost)
+    {
+        this.id = otherPost.id;
+        this.city = otherPost.city;
+        this.state = otherPost.state;
+        this.category = otherPost.category;
+        this.title = otherPost.title;
+        this.description = otherPost.description;
+        this.user = otherPost.user;
+        this.date = otherPost.date;
+        this.up = otherPost.up;
+        this.down = otherPost.down;
+        this.isFavorited = otherPost.isFavorited;
+    }
+
+
     public Post(String id, String city,String state, String category, String title, String description, String user, String date, String up, String down, boolean isFavorited) {
         this(city,state, category, title, description, user, date, up, down, isFavorited);
         this.id = id;

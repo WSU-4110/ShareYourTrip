@@ -37,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         PostDAO postDAO = new PostDAO(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_posts);
+
         postAdapter = new ProfilePostAdapter(postsList);
 
         //Setting up our recycler view

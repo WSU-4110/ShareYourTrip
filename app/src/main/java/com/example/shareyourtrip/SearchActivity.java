@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     EditText txt_State;
 
     private List<Post> postsList = new ArrayList<Post>();
+    private List<Post> favList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
 
@@ -73,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
         final PostDAO postDAO = new PostDAO(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.search_rv);
-        postAdapter = new PostAdapter(postsList);
+        postAdapter = new PostAdapter(postsList,this);
 
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(postLayoutManager);
@@ -158,6 +160,13 @@ public class SearchActivity extends AppCompatActivity {
 
                             String[] cols = {"city", "state"};
 
+                            StringBuilder favPostsQuery = new StringBuilder();
+                            favPostsQuery.append("select * from post ");
+                            favPostsQuery.append("inner join postFav on ");
+                            favPostsQuery.append("post.id = postFav.postid and postFav.useremail = '");
+                            favPostsQuery.append(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                            favPostsQuery.append("';");
+
                             try {
                                 List<Post> listPost = postDAO.listAllPost(stringBuilder.toString(), null);
                                 if(listPost.size()==0){
@@ -165,6 +174,17 @@ public class SearchActivity extends AppCompatActivity {
                                     //Toast.makeText(SearchActivity.this,"There are no posts with the given criteria!",Toast.LENGTH_LONG).show();;
                                 }
                                 postsList.addAll(listPost);
+                                List<Post> listFavPost = postDAO.listAllPost(favPostsQuery.toString(), null);
+                                favList.addAll(listFavPost);
+                                for(Post regPost : postsList)
+                                {
+                                    for(Post favPost : favList){
+                                        if(regPost.getId().equals(favPost.getId())){
+                                            regPost.setFavorited(true);
+                                            break;
+                                        }
+                                    }
+                                }
                                 postAdapter.notifyDataSetChanged();
                             }
                             catch (SQLiteException e){

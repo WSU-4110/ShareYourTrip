@@ -97,7 +97,7 @@ public class PostActivity extends AppCompatActivity {
 
                         //System.out.print(date.format(new Date().toString()));
 
-                        flag = postDAO.insert(city.getText().toString(),
+                        flag = postDAO.insertPostByValues(city.getText().toString(),
                                 state.getText().toString(),
                                 spinner_category.getSelectedItem().toString(),
                                 title.getText().toString(),
