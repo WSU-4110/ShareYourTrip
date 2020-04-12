@@ -8,9 +8,12 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import android.content.DialogInterface;
+import android.content.Intent;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 //This code showcases the design pattern "Adapters"
@@ -27,6 +30,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     //This will be a list of user posts to display to the users
     protected List<Post> postList;
+    int count_dislike = 0;
+    int count_like = 0;
+    boolean flag = false;
+    String[] colarr = new String[] {"t"};
+    String[] valarr = new String[] {"t"};
+    String[] argsarr = new String[] {"t"};
+    PostDAO postDAO;
 
     //Copy constructor
     public PostAdapter(List<Post> postList) {
@@ -61,6 +71,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        postDAO = new PostDAO(parent.getContext());
+
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.post_list_row, parent, false);
         return new MyViewHolder(itemView);
@@ -72,7 +84,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         //Setting views with values from postList
-        Post post = postList.get(position);
+        final Post post = postList.get(position);
 
         holder.location.setText(post.getCity() + ", " + post.getState());
         holder.category.setText(post.getCategory());
@@ -80,8 +92,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.description.setText(post.getDescription());
         holder.user.setText(post.getUser());
         holder.date.setText(post.getDate());
-        //todo holder.likeCount.setText( post.getLikes);
-        //todo holder.dislikeCount.setText( post.getDislikes );
+        holder.likeCount.setText( post.getUp());
+        holder.dislikecount.setText( post.getDown());
 
 
         //TODO: add isFavorited to database
@@ -126,13 +138,35 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     if (holder.dislikeButton.isChecked()) {
                         holder.dislikeButton.setChecked(false);//toggle off dislike.
                     }
-                    //todo: Put like database stuff here
+
+                    // Increases like count by 1
+                    count_like = Integer.parseInt(holder.likeCount.getText().toString());
+                    count_like++;
+                    post.setUp(Integer.toString(count_like));
+                    holder.likeCount.setText(Integer.toString(count_like));
+
                 }
 
                 //If like button is toggled off
                 else {
                     holder.likeButton.setBackgroundResource(R.drawable.ic_like);
+
+                    // Decreases like count by 1
+                    count_like = Integer.parseInt(holder.likeCount.getText().toString());
+                    count_like = count_like - 1;
+                    post.setUp(Integer.toString(count_like));
+                    holder.likeCount.setText(Integer.toString(count_like));
+
                 }
+
+                // Set array values for database
+                colarr[0] = "up";
+                valarr[0] = holder.likeCount.getText().toString();
+                argsarr[0] = post.getId();
+
+                //Code to update database
+                flag = postDAO.update( colarr, valarr, "id=?", argsarr);
+
             }
         });
 
@@ -146,12 +180,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     if (holder.likeButton.isChecked()) {
                         holder.likeButton.setChecked(false);//toggle off like
                     }
-                    //todo: Put dislike database stuff here
+
+                    // Increases dislike count by 1
+                    count_dislike = Integer.parseInt(holder.dislikecount.getText().toString());
+                    count_dislike++;
+                    post.setDown(Integer.toString(count_dislike));
+                    holder.dislikecount.setText(Integer.toString(count_dislike));
+
+
                 }
                 //If dislike is toggled off..
                 else {
                     holder.dislikeButton.setBackgroundResource(R.drawable.ic_dislike);
+
+                    // Decreases dislike count by 1
+                    count_dislike = Integer.parseInt(holder.dislikecount.getText().toString());
+                    count_dislike--;
+                    post.setDown(Integer.toString(count_dislike));
+                    holder.dislikecount.setText(Integer.toString(count_dislike));
+
                 }
+
+                colarr[0] = "down";
+                valarr[0] = holder.dislikecount.getText().toString();
+                argsarr[0] = post.getId();
+
+                //Code to update database
+                flag = postDAO.update(colarr, valarr, "id=?", argsarr);
+
             }
         });
     }
