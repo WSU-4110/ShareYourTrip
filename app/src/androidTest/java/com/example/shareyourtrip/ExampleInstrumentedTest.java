@@ -24,4 +24,6 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.example.shareyourtrip", appContext.getPackageName());
     }
+
+
 }

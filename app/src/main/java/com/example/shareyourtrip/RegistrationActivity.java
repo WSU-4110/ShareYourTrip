@@ -30,6 +30,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    static String alertTitle;
+
     EditText txt_FirstName;
     EditText txt_LastName;
     EditText txt_Email;
@@ -39,15 +41,54 @@ public class RegistrationActivity extends AppCompatActivity {
     Button btn_Register;
 
     public static boolean isValidEmail(CharSequence target) {
-        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+        return ( !isEmpty(target.toString()) && isValidemailPattern(target.toString()));
     }
 
-    public static void alertDisplay(Context context, String msg, boolean success){
-        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-        if(success)
-            alertDialog.setTitle("Successful Registration");
+    public static boolean isValidemailPattern(String pattern){
+        if(pattern.contains("@") && pattern.contains("."))
+            return true;
         else
-            alertDialog.setTitle("Unsuccessful Registration");
+            return false;
+    }
+
+    public static boolean isEmpty(String string){
+        return string.equals("");
+    }
+
+    public static String SetRegistrationPriority(int priority){
+        if(priority < 10)
+            return "early registration";
+        else if(priority >= 10 && priority<20)
+            return "mid-day registration";
+        else
+            return "mid-day registration";
+    }
+
+    public static boolean ckeckAlertTitle(String title){
+        if(alertTitle.equals(title))
+            return true;
+        else
+            return false;
+    }
+
+    public static boolean isPasswordSixChar(String password){
+        if(password.length()>=6)
+            return true;
+        else
+            return false;
+    }
+
+    public static String alertDisplay(Context context, String msg, boolean success){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        String title;
+        if(success) {
+            title = "Successful Registration";
+        }
+        else {
+            title = "Unsuccessful Registration";
+        }
+        ckeckAlertTitle(title);
+        alertDialog.setTitle(title);
         alertDialog.setMessage(msg);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
@@ -56,12 +97,13 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
         alertDialog.show();
+
+        return title;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public boolean initializeFields()
+    {
+        SetRegistrationPriority(10);
 
         txt_FirstName = (EditText)findViewById(R.id.txtFirstName);
         txt_LastName = (EditText)findViewById(R.id.txtLasttName);
@@ -70,6 +112,21 @@ public class RegistrationActivity extends AppCompatActivity {
         txt_Email = (EditText)findViewById(R.id.txtEmail);
         txt_ConfirmPassword = (EditText)findViewById(R.id.txtConfirmPassword);
         btn_Register = (Button) findViewById(R.id.btnRegister);
+
+        if(txt_FirstName!=null && txt_LastName!=null && txt_Password!=null && txt_Username!=null && txt_Email!=null && txt_ConfirmPassword!=null && btn_Register!=null)
+            return true;
+        return false;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initializeFields();
+
+        if(!isPasswordSixChar(txt_Password.getText().toString()))
+            finish();
 
         mAuth = FirebaseAuth.getInstance();
 
