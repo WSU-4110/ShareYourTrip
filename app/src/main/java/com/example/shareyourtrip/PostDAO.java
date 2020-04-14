@@ -54,7 +54,7 @@ public class PostDAO extends SQLiteOpenHelper {
                 " (postid integer not null, "+
                 "useremail text not null, " +    //for storing user email
                 "primary key(postid, useremail), " +
-                "foreign key (postid) references post(id));";
+                "foreign key (postid) references post(id) on delete cascade);";
 
 
         db.execSQL(postFavSql);
