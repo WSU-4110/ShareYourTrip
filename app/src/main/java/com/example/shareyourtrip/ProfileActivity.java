@@ -38,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_posts);
 
-        postAdapter = new ProfilePostAdapter(postsList);
+        postAdapter = new ProfilePostAdapter(postsList, this);
 
         //Setting up our recycler view
         RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(getApplicationContext());

@@ -35,17 +35,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
 
     //This will be a list of user posts to display to the users
-    private List<Post> postList;
+    protected List<Post> postList;
     int count_dislike = 0;
     int count_like = 0;
     boolean flag = false;
     String[] colarr = new String[] {"t"};
     String[] valarr = new String[] {"t"};
     String[] argsarr = new String[] {"t"};
-    private PostDAO postDAO;
+    protected PostDAO postDAO;
     private List<Post> favPostList;
     Context currentContext;
-    private Post clickedPost;
+    protected Post clickedPost;
 
 
     private boolean isProfilePage;
@@ -72,13 +72,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     //This is a ViewHolder which holds 5 TextViews which make up our post.
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView location, category, title, description, user, date, likeCount, dislikecount;
+        public TextView location, category, title, description, user, date, likeCount, dislikecount, id;
         public ToggleButton favButton, likeButton, dislikeButton;
         public Button deleteButton;
 
         //Constructor of the ViewHolder, initializes TextViews
         public MyViewHolder(View view) {
             super(view);
+            //id = (TextView) view.findViewById(R.id.id);
             location = (TextView) view.findViewById(R.id.location);
             category = (TextView) view.findViewById(R.id.category);
             title = (TextView) view.findViewById(R.id.title);
@@ -131,6 +132,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.date.setText(post.getDate());
         holder.likeCount.setText( post.getUp());
         holder.dislikecount.setText( post.getDown());
+        //holder.id.setText( post.getId());
 
 
         //TODO: add isFavorited to database
