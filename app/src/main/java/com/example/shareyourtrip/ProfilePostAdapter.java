@@ -37,6 +37,8 @@ public class ProfilePostAdapter extends PostAdapter {
 
         super.onBindViewHolder(holder, position);
 
+        holder.favButton.setBackgroundResource(R.drawable.ic_blank);
+
         //Delete button logic
         holder.deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -186,7 +186,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             holder.favButton.setBackgroundResource(R.drawable.ic_unfavorited);
                             alertDisplay(currentContext,"Unfavorited Successfully","You unfavorited this post!");
                             //Toast.makeText(currentContext,"You unfavorited this post!",Toast.LENGTH_LONG).show();
-
+                            currentContext.startActivity(new Intent(currentContext, FavoriteActivity.class));
                         }
                     }
                 }
