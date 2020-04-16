@@ -21,7 +21,7 @@ public class PostDAO extends SQLiteOpenHelper {
     private static final int DB_VERSION =15;
     private String sql;*/
     private static final String DBNAME = "ShareYourTrip.db";
-    private static final int DB_VERSION =15;
+    private static final int DB_VERSION =16;
     private static final String POST_TABLE = "post";
     private static final String POST_FAV_TABLE = "postFav";
 
