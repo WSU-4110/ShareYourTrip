@@ -1,5 +1,4 @@
 # ShareYourTrip
 ShareYourTrip is an Android app to share different aspects of your trip with others. 
-users can search a city and find posts that are written by other users for that specific city.
-users can make a post as their favorite post
-also they can rate others post by like it or dislike it
+Users can search a city and find posts that are written by other users for that specific city.
+Users can make a post as their favorite post and they can also rate other's post by liking it (thumb up) or disliking it (thumb down).
