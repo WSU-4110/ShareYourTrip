@@ -102,7 +102,9 @@ public class TestPostDAO {
 
     //6
     @Test
-    public void testDeleteFavPost(){
+    public void testDeleteFavPost() {
+
+
         String goodClause = "postid=? and useremail=?";
         String[] args = {"1", "lc@a.com"};
         assertEquals(exp, postDAO.deleteFavPost(goodClause, null));
