@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = user_email.getText().toString();
                 String password = user_password.getText().toString();
-                if(user_email.getText().toString().equals("")){
+                if(user_email.getText().toString().equals("") || user_password.getText().toString().equals("")){
                     alertDisplay(LoginActivity.this,"Some information is missing!",false);
                 }
                 else {
