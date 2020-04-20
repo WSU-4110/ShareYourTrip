@@ -25,3 +25,4 @@ android:
 
     - ./gradlew connectToSmartphoneTestFarm
     - ./gradlew :module:connectedDebugAndroidTest
+    
