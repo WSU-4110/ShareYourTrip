@@ -22,7 +22,8 @@ android {
 
     testOptions {
         unitTests.all {
-            useJUnitPlatform()
+            //useJUnitPlatform()
+            include "src/test/java/com.example.shareyourtrip"
         }
     }
 }
